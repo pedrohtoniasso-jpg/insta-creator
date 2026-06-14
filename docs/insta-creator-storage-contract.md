@@ -3,6 +3,16 @@
 ## Goal
 Store each post as a self-contained artifact bundle that can be reviewed, approved, and published without losing traceability.
 
+## Folder root
+The post storage root is configurable per project, with a local default supplied by the bootstrap.
+
+Default local root:
+- `content/posts/`
+
+Examples:
+- `content/posts/`
+- a project-specific root defined in the project config
+
 ## Folder naming
 Use a deterministic folder name:
 
@@ -13,9 +23,6 @@ YYYY.MM.DD - Short subject
 Examples:
 - `2026.06.14 - Receita simples`
 - `2026.06.14 - Novo posicionamento`
-
-## Folder root
-The exact root path can be configured by the project bootstrap, but the structure inside each post folder must remain consistent.
 
 ## Required files
 Each post folder must contain:

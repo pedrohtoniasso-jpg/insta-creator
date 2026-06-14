@@ -20,6 +20,7 @@ This phase does *not* implement content generation, publishing, or engagement au
 
 ### Project-spec contract
 - Every project gets a separate brand-spec document.
+- The project spec will use **Markdown with headings** as the standard format.
 - The project spec should define tone, visual rules, CTA style, growth strategy, and prohibited angles.
 - The project spec must be loadable by the later workflow skills without changing the bootstrap.
 
@@ -30,8 +31,10 @@ This phase does *not* implement content generation, publishing, or engagement au
 
 ### Post artifact storage
 - Every post must be stored in its own folder.
+- The post storage root is configurable per project, with a local bootstrap default.
 - A post folder should contain a manifest, brief, cards JSON, caption, approval package, and assets.
 - Folder naming must be deterministic and reproducible.
+- The agreed folder naming pattern is `YYYY.MM.DD - Short subject`.
 
 ### Bootstrap scope
 - Bootstrap belongs to the shared skill suite, not any project folder.
@@ -40,7 +43,7 @@ This phase does *not* implement content generation, publishing, or engagement au
 
 ### Claude's Discretion
 - Exact file root for the project-spec documents.
-- Exact folder root for post artifact bundles.
+- Exact local default path for the storage root.
 - Internal naming conventions for the skill modules themselves.
 </decisions>
 
@@ -78,8 +81,7 @@ This phase does *not* implement content generation, publishing, or engagement au
 
 <deferred>
 ## Deferred Ideas
-- Exact markdown vs JSON format for project specs.
-- Exact storage root for post bundles.
+- Exact markdown section names and ordering for the project-spec template.
 - Publication channel strategy.
 </deferred>
 

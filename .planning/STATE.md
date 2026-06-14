@@ -7,6 +7,10 @@
 - The bootstrap belongs to the shared skill suite.
 - Each post must be stored in its own folder.
 - Growth workflows are part of the project, but they must be approval-gated and auditable.
+- The project-spec format will be Markdown with headings.
+- The post storage root is configurable per project, with a local bootstrap default.
+- The default local root is `content/posts/`.
+- The agreed folder naming pattern is `YYYY.MM.DD - Short subject`.
 
 ## Roadmap evolution
 - Phase 1 added: Define system architecture, storage contract, and project-spec boundaries.
@@ -14,8 +18,7 @@
 - Growth strategy was added as a first-class project concern.
 
 ## Open questions
-- Exact file format for the project-spec contract.
-- Exact folder root for post artifacts.
+- Exact markdown section names and ordering for the project-spec template.
 - Whether publication is Facebook-only, Instagram-only, or multi-platform.
 - Whether follow/unfollow actions should be automatic or manually approved in batches.
 
