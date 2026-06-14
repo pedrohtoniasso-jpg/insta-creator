@@ -4,10 +4,13 @@
 The shared skill suite is responsible for reusable content-creation logic only. It accepts an idea, applies generic workflow steps, and produces structured artifacts. It must not contain brand-specific rules for any one client or project.
 
 ## Project-specific spec
-Every project must provide a separate brand/spec document. That spec is the source of truth for tone, voice, visual style, CTA conventions, and approval behavior. The shared workflow reads the spec; it does not own it.
+Every project must provide a separate brand/spec document. That spec is the source of truth for tone, voice, visual style, CTA conventions, growth strategy, and approval behavior. The shared workflow reads the spec; it does not own it.
 
 ## Idea intake
 The upstream idea source is a cron-fed signal. `last30days` is the default trend-discovery input, but the shared workflow treats it as just another idea source and does not bake the trend logic into the brand layer.
+
+## Growth workflow boundary
+Growth actions such as following, unfollowing, liking, and drafting comment replies are part of the project workflow, but they must be governed by project-specific rules and approval gates. Batch-generated replies should always be prepared for human review before sending.
 
 ## Per-post artifact storage
 Each post must be stored in its own folder so the post can be reviewed, approved, published, and audited as a single bundle.
@@ -23,11 +26,13 @@ Bootstrap belongs to the shared suite. It sets up the generic workflow, validate
 5. The workflow generates caption/CTA/hashtags.
 6. The workflow packages the post for approval.
 7. The workflow saves the post bundle in a deterministic folder.
-8. Publication happens after approval.
+8. Growth actions are queued or drafted when allowed by the project spec.
+9. Publication or engagement happens after approval.
 
 ## Design principles
 - Reusable across projects
 - Brand rules externalized
 - Deterministic storage
 - Clear traceability
+- Approval-gated growth actions
 - Minimal project coupling

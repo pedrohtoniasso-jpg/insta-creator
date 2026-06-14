@@ -5,9 +5,9 @@
 
 <domain>
 ## Phase Boundary
-Define the shared architecture for the reusable Instagram content system: the generic workflow core, the storage contract for per-post artifacts, and the boundary between shared skills and project-specific brand specs.
+Define the shared architecture for the reusable Instagram content system: the generic workflow core, the storage contract for per-post artifacts, the project-spec contract, and the growth boundary.
 
-This phase does *not* implement content generation or publication. It establishes the rules the later phases will use.
+This phase does *not* implement content generation, publishing, or engagement automation. It establishes the rules the later phases will use.
 </domain>
 
 <decisions>
@@ -20,8 +20,13 @@ This phase does *not* implement content generation or publication. It establishe
 
 ### Project-spec contract
 - Every project gets a separate brand-spec document.
-- The project spec should define tone, visual rules, CTA style, and prohibited angles.
+- The project spec should define tone, visual rules, CTA style, growth strategy, and prohibited angles.
 - The project spec must be loadable by the later workflow skills without changing the bootstrap.
+
+### Growth boundary
+- Growth actions such as follows, unfollows, likes, and reply drafting belong to the project workflow.
+- Batch reply suggestions should be prepared for human approval before sending.
+- Approval gates are required for outbound engagement actions that could be noisy or risky.
 
 ### Post artifact storage
 - Every post must be stored in its own folder.

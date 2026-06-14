@@ -9,6 +9,7 @@ A project spec must define:
 - Brand voice
 - Visual rules
 - CTA conventions
+- Growth strategy
 - Prohibited angles or topics
 - Approval behavior
 - Asset constraints, if any
@@ -35,6 +36,14 @@ Describe how calls to action should be written.
 - Link or profile reference style
 - Hashtag conventions
 
+## Growth strategy
+Describe how the project wants to grow its audience.
+- Follow/unfollow policy
+- Comment like policy
+- Reply strategy
+- Approval rules for engagement actions
+- Rate limits or safety constraints
+
 ## Prohibited angles
 List topics, claims, or angles that must not appear.
 - Unsafe claims
@@ -47,6 +56,7 @@ Describe how the post should be presented for approval.
 - Whether the approval message should include the final caption
 - Whether slide-by-slide notes are required
 - Whether revisions should be grouped or marked individually
+- Whether batch reply suggestions must be approved in groups
 
 ## Minimal example shape
 ```markdown
@@ -59,6 +69,9 @@ Describe how the post should be presented for approval.
 ...
 
 ## CTA conventions
+...
+
+## Growth strategy
 ...
 
 ## Prohibited angles

@@ -18,6 +18,9 @@ The system must include a bootstrap flow for installing and configuring the shar
 ## REQ-06 — Traceability
 The system must preserve traceability from idea → cards/JSON → caption → approval package → publication.
 
+## REQ-07 — Growth engagement workflows
+The system must support project-specific growth workflows such as follow/unfollow queues, comment engagement, and batch-generated reply suggestions with approval gates.
+
 ## Artifact requirements
 Each post folder should contain, at minimum:
 - `manifest.json`
@@ -31,9 +34,11 @@ Each post folder should contain, at minimum:
 - Paths and naming should be deterministic.
 - The core workflow should remain project-agnostic.
 - Brand-specific logic should live outside the shared bootstrap.
+- Growth workflows should be explicit, auditable, and approval-gated where needed.
 - Outputs should be easy to replicate across other projects.
 
 ## Out of scope for the first milestone
 - Fully automated multi-platform publishing for every network.
 - Project-specific branding stored inside the shared bootstrap package.
 - Deep content strategy research beyond the cron idea feed.
+- Aggressive or policy-breaking engagement automation.
