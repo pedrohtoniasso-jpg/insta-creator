@@ -7,6 +7,10 @@
 - The bootstrap belongs to the shared skill suite.
 - Each post must be stored in its own folder.
 
+## Roadmap evolution
+- Phase 1 added: Define system architecture, storage contract, and project-spec boundaries.
+- Phase 1 is now the active starting point for the system design.
+
 ## Open questions
 - Exact file format for the project-spec contract.
 - Exact folder root for post artifacts.
