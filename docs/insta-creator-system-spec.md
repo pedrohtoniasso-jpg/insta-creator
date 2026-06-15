@@ -10,7 +10,7 @@ Every project must provide a separate brand/spec document. That spec is the sour
 The upstream idea source is a cron-fed signal. `last30days` is the default trend-discovery input, but the shared workflow treats it as just another idea source and does not bake the trend logic into the brand layer.
 
 ## Growth workflow boundary
-Growth actions such as following, unfollowing, liking, and drafting comment replies are part of the project workflow, but they must be governed by project-specific rules and approval gates. Batch-generated replies should always be prepared for human review before sending.
+Growth actions such as following, unfollowing, liking, and drafting comment replies are part of the project workflow, but they must be governed by project-specific rules and approval gates. Follow/unfollow and comment likes are automatic. Reply drafts should always be prepared for batch review and approved before sending.
 
 ## Per-post artifact storage
 Each post must be stored in its own folder so the post can be reviewed, approved, published, and audited as a single bundle.
