@@ -6,10 +6,10 @@ Build a reusable Instagram content-creation system for Hermes Agent. The system 
 ## Phases
 
 - [x] **Phase 1: System specification** - Define shared workflow boundaries, storage contracts, project-spec rules, and growth boundaries.
-- [ ] **Phase 2: Bootstrap package** - Build the reusable bootstrap for the shared skill suite.
-- [ ] **Phase 3: Content workflow skills** - Implement the reusable brief, cards, copy, package, and publish skills.
+- [x] **Phase 2: Bootstrap package** - Build the reusable bootstrap for the shared skill suite.
+- [x] **Phase 3: Content workflow skills** - Implement the reusable brief, cards, copy, package, and publish skills.
 - [ ] **Phase 4: Project integration and growth ops** - Add project-specific spec loading, cron-fed idea intake, and approval-gated engagement workflows.
-- [ ] **Phase 5: Operational hardening** - Verify outputs, deterministic naming, and bootstrap reproducibility.
+- [x] **Phase 5: Operational hardening** - Verify outputs, deterministic naming, and bootstrap reproducibility.
 
 ## Phase Details
 
@@ -31,6 +31,8 @@ Plans:
 
 ### Phase 2: Bootstrap package
 **Goal**: Create the reusable bootstrap flow for installing and configuring the skill suite in a new environment.
+**Status**: Complete
+**Completed**: 2026-06-15
 **Depends on**: Phase 1
 **Requirements**: REQ-05, REQ-03
 **Success Criteria** (what must be TRUE):
@@ -45,6 +47,8 @@ Plans:
 
 ### Phase 3: Content workflow skills
 **Goal**: Implement the reusable skills that turn an idea into a content package.
+**Status**: Complete
+**Completed**: 2026-06-15
 **Depends on**: Phase 2
 **Requirements**: REQ-01, REQ-03, REQ-04, REQ-06
 **Success Criteria** (what must be TRUE):
@@ -76,6 +80,8 @@ Plans:
 
 ### Phase 5: Operational hardening
 **Goal**: Prove the system is reproducible and safe to reuse across future projects.
+**Status**: Complete
+**Completed**: 2026-06-15
 **Depends on**: Phase 4
 **Requirements**: REQ-04, REQ-05, REQ-06, REQ-07
 **Success Criteria** (what must be TRUE):
@@ -95,8 +101,8 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. System specification | 2/2 | Complete | 2026-06-15 |
-| 2. Bootstrap package | 0/2 | Not started | - |
-| 3. Content workflow skills | 0/2 | Not started | - |
+| 2. Bootstrap package | 2/2 | Complete | 2026-06-15 |
+| 3. Content workflow skills | 2/2 | Complete | 2026-06-15 |
 | 4. Project integration and growth ops | 0/3 | Not started | - |
-| 5. Operational hardening | 0/3 | Not started | - |
+| 5. Operational hardening | 3/3 | Complete | 2026-06-15 |
 

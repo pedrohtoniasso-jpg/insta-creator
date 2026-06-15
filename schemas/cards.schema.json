@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openclaw.local/insta-creator/cards.schema.json",
+  "title": "Insta Creator Cards",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "post_id", "subject", "slide_count", "cards", "traceability"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "post_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "slide_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "cards": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["slide", "role", "headline", "body", "visual_note"],
+        "properties": {
+          "slide": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1
+          },
+          "headline": {
+            "type": "string",
+            "minLength": 1
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1
+          },
+          "visual_note": {
+            "type": "string",
+            "minLength": 1
+          },
+          "cta_note": {
+            "type": "string"
+          },
+          "source_notes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "traceability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["idea", "brief_source", "project_spec"],
+      "properties": {
+        "idea": {
+          "type": "string",
+          "minLength": 1
+        },
+        "brief_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "project_spec": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content_root": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

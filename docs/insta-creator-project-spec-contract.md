@@ -62,6 +62,13 @@ Describe how the post should be presented for approval.
 - Reply drafts are approved in batches before sending
 - Batch approval package must include the original comment and the suggested reply
 
+## Revision and learning loop
+Describe how feedback from changes or rejections should improve future output.
+- What feedback to capture when a post is changed or rejected
+- Which project docs should be updated after feedback
+- Which visual, CTA, or copy rules should be tightened for the next run
+- Whether repeated mistakes should be escalated as explicit prohibited patterns
+
 ## Minimal example shape
 ```markdown
 # Brand Spec: Example Project

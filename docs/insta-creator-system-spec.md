@@ -12,6 +12,9 @@ The upstream idea source is a cron-fed signal. `last30days` is the default trend
 ## Growth workflow boundary
 Growth actions such as following, unfollowing, liking, and drafting comment replies are part of the project workflow, but they must be governed by project-specific rules and approval gates. Follow/unfollow and comment likes are automatic. Reply drafts should always be prepared for batch review and approved before sending.
 
+## Image and revision verification
+Generated images must be checked against the approved brief, cards, and project-spec visual rules before a post is approved. If a post is changed or rejected, the workflow should capture the feedback and feed it back into the project documentation so the next run is more accurate.
+
 ## Per-post artifact storage
 Each post must be stored in its own folder so the post can be reviewed, approved, published, and audited as a single bundle.
 

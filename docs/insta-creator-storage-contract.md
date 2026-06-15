@@ -37,6 +37,8 @@ Each post folder must contain:
 - Store generated images or media files here.
 - Use stable file names such as `01.png`, `02.png`, `03.png`.
 - Do not mix unrelated assets from other posts.
+- Generated images should be checked against the brief, cards, and project-spec visual rules before approval.
+- If an image is changed, rejected, or re-generated, record the reason in the approval bundle or manifest notes.
 
 ## `manifest.json` minimum fields
 The manifest should capture at least:
