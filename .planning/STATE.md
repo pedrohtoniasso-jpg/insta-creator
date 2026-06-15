@@ -19,6 +19,8 @@
 - Captions should follow a predictable structure with style-based variation.
 - The approval package should keep all reviewer inputs in one deterministic post folder.
 - The project spec should be a separate Markdown file per project.
+- The reusable project integration layer lives in `insta_creator_bootstrap/integration.py`.
+- `ProjectSpec`, `CronIdeaIntake`, and `GrowthActionQueue` are the phase 4 integration primitives.
 - Cron intake should be hybrid: free-form idea text plus structured fields where available.
 - The shared workflow should normalize cron intake and preserve traceability.
 - Follow/unfollow and comment likes are automatic.

@@ -8,7 +8,7 @@ Build a reusable Instagram content-creation system for Hermes Agent. The system 
 - [x] **Phase 1: System specification** - Define shared workflow boundaries, storage contracts, project-spec rules, and growth boundaries.
 - [x] **Phase 2: Bootstrap package** - Build the reusable bootstrap for the shared skill suite.
 - [x] **Phase 3: Content workflow skills** - Implement the reusable brief, cards, copy, package, and publish skills.
-- [ ] **Phase 4: Project integration and growth ops** - Add project-specific spec loading, cron-fed idea intake, and approval-gated engagement workflows.
+- [x] **Phase 4: Project integration and growth ops** - Add project-specific spec loading, cron-fed idea intake, and approval-gated engagement workflows.
 - [x] **Phase 5: Operational hardening** - Verify outputs, deterministic naming, and bootstrap reproducibility.
 
 ## Phase Details
@@ -63,6 +63,8 @@ Plans:
 
 ### Phase 4: Project integration and growth ops
 **Goal**: Connect cron-sourced ideas, project-specific specs, and approval-gated growth workflows to the shared system.
+**Status**: Complete
+**Completed**: 2026-06-15
 **Depends on**: Phase 3
 **Requirements**: REQ-01, REQ-02, REQ-06, REQ-07
 **Success Criteria** (what must be TRUE):
@@ -103,6 +105,6 @@ Plans:
 | 1. System specification | 2/2 | Complete | 2026-06-15 |
 | 2. Bootstrap package | 2/2 | Complete | 2026-06-15 |
 | 3. Content workflow skills | 2/2 | Complete | 2026-06-15 |
-| 4. Project integration and growth ops | 0/3 | Not started | - |
+| 4. Project integration and growth ops | 3/3 | Complete | 2026-06-15 |
 | 5. Operational hardening | 3/3 | Complete | 2026-06-15 |
 

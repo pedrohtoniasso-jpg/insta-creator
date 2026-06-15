@@ -45,6 +45,13 @@ Useful references:
 - `skills/social-media/insta-creator-caption/SKILL.md`
 - `skills/social-media/insta-creator-approval-package/SKILL.md`
 
+### Project integration
+The repository also includes a reusable project integration layer for loading project specs, normalizing cron-fed idea intake, and queueing approval-gated growth actions.
+
+Useful reference:
+- `docs/project-integration.md`
+- `insta_creator_bootstrap/integration.py`
+
 ### Trend research skill
 The repository also includes the `last30days` skill for finding recent signals and turning them into content opportunities.
 
