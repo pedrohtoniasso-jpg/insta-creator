@@ -26,6 +26,7 @@ This phase does *not* implement content generation, publishing, or engagement au
 
 ### Growth boundary
 - Growth actions such as follows, unfollows, likes, and reply drafting belong to the project workflow.
+- Follow/unfollow and comment likes are automatic.
 - Reply drafts are approved in batches before sending.
 - Approval gates are required for outbound engagement actions that could be noisy or risky.
 

@@ -38,8 +38,8 @@ Describe how calls to action should be written.
 
 ## Growth strategy
 Describe how the project wants to grow its audience.
-- Follow/unfollow policy
-- Comment like policy
+- Follow/unfollow policy: automatic
+- Comment like policy: automatic
 - Reply strategy
 - Approval rules for engagement actions (reply drafts are approved in batches before sending)
 - Rate limits or safety constraints

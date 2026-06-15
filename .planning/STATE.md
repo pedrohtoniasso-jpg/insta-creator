@@ -7,6 +7,7 @@
 - The bootstrap belongs to the shared skill suite.
 - Each post must be stored in its own folder.
 - Growth workflows are part of the project, but they must be approval-gated and auditable.
+- Follow/unfollow and comment likes are automatic.
 - Reply drafts are approved in batches before sending.
 - The project-spec format will be Markdown with headings.
 - The post storage root is configurable per project, with a local bootstrap default.

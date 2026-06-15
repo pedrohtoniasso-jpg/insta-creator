@@ -64,7 +64,7 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. A project-specific spec can be loaded without changing the shared bootstrap.
   2. Cron-fed ideas can enter the workflow as structured inputs.
-  3. The system can queue growth actions such as follows, unfollows, likes, and comment replies.
+  3. The system can automatically handle growth actions such as follows, unfollows, likes, and comment replies.
   4. Reply drafts can be assembled for batch approval before sending.
   5. The system preserves traceability from idea to publication or engagement action.
 **Plans**: TBD
