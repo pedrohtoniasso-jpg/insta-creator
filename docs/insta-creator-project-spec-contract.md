@@ -41,7 +41,7 @@ Describe how the project wants to grow its audience.
 - Follow/unfollow policy
 - Comment like policy
 - Reply strategy
-- Approval rules for engagement actions (any drafted response requires approval before sending)
+- Approval rules for engagement actions (reply drafts are approved in batches before sending)
 - Rate limits or safety constraints
 
 ## Prohibited angles
@@ -56,7 +56,7 @@ Describe how the post should be presented for approval.
 - Whether the approval message should include the final caption
 - Whether slide-by-slide notes are required
 - Whether revisions should be grouped or marked individually
-- Whether batch reply suggestions must be approved in groups
+- Reply drafts are approved in batches before sending
 
 ## Minimal example shape
 ```markdown
