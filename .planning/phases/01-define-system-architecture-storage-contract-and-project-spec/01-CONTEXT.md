@@ -83,7 +83,6 @@ This phase does *not* implement content generation, publishing, or engagement au
 <deferred>
 ## Deferred Ideas
 - Exact markdown section names and ordering for the project-spec template.
-- Publication channel strategy.
 </deferred>
 
 ---
