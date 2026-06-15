@@ -39,10 +39,10 @@ The manifest is the traceability anchor. It should record:
 The brief captures the problem, audience, angle, content objective, risks, and CTA direction.
 
 ### `cards.json`
-Cards are structured JSON. They must be deterministic, ordered, and easy to validate.
+Cards are structured JSON. They must be deterministic, ordered, easy to validate, and shaped like a single narrative rather than disconnected mini-posts.
 
 ### `caption.md`
-The caption should keep a predictable structure: hook, body, CTA, hashtags.
+The caption should keep a predictable structure that supports the same narrative arc as the cards: hook, body, CTA, hashtags.
 
 ### `approval.md`
 The approval package should summarize the chosen direction and provide the reviewer with everything needed in one place.

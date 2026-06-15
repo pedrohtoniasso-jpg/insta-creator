@@ -1,68 +1,65 @@
-# Brand Spec: GranaFlow
+# Brand Spec Template
+
+This document is a *generic template* for project-specific Instagram brand specs.
+It intentionally avoids naming any single client or campaign.
 
 ## Project name
-GranaFlow
 
 ## Target platform
-Instagram
+- Instagram
 
 ## Brand voice
-- Tone: technical, accessible, and direct
-- Form of address: speak to the reader in second person or neutral Brazilian Portuguese
-- Vocabulary: finance, budget, credit card, installments, cash flow, control, investment, planning
-- Directness: high; avoid fluff and vague motivational language
+- Tone:
+- Form of address:
+- Vocabulary preferences:
+- Level of directness:
 
 ## Visual rules
-- Style: glassmorphism, modern fintech, premium
-- Palette:
-  - Primary: `#0f172a`
-  - Secondary: `#1e293b`
-  - Accent: `#3b82f6`
-- Prefer clean layouts with strong hierarchy and ample negative space
-- Use grid lines and transparent surfaces when it helps the composition
-- Prioritize carousels over static posts
+- Color direction:
+- Typography direction:
+- Image style:
+- Layout preferences:
+- Logo or watermark rules:
+- Carousel storytelling style:
+  - hook / problem / context / insight / consequences / principle / CTA
+  - use short, clean slides with clear continuity
+  - name the topic early when that improves clarity and engagement
 
 ## CTA conventions
-- Primary CTA: direct users to `granaflow.pages.dev`
-- Secondary CTA: short profile/beta prompt when needed
-- Hashtags: keep them at the end of the caption and keep them relevant to personal finance and control
-- Final slide must always include the CTA
+- Primary CTA:
+- Secondary CTA:
+- Link or profile reference style:
+- Hashtag conventions:
+- Beta or trial prompt, if relevant:
 
 ## Growth strategy
 - Follow/unfollow policy: automatic
 - Comment like policy: automatic
-- Reply strategy: prepare reply drafts in batches and wait for approval before sending
-- Keep growth actions auditable and traceable
-- Use `last30days` as the upstream signal for recent themes and angles
+- Reply strategy:
+- Approval rules for engagement actions:
+- Rate limits or safety constraints:
+- Timing/spread rules for automated actions:
 
 ## Approval behavior
-- Approval packages must include the final caption
-- Slide-by-slide notes are required when the post is a carousel
-- Revisions should be grouped clearly and not scattered across loose files
-- Reply drafts are approved in batches before sending
+- Whether the approval message should include the final caption:
+- Whether slide-by-slide notes are required:
+- Whether revisions should be grouped or marked individually:
+- Reply drafts are approved in batches before sending:
+- Batch approval package contents:
 
 ## Prohibited angles
-- Avoid unsafe claims about money or investments
-- Avoid promising returns, guarantees, or easy riches
-- Avoid off-brand jokes that weaken trust
-- Avoid dense jargon that blocks readability
-- Avoid anything that blurs the line between fact and opinion without marking it
+- Unsafe claims:
+- Off-brand messaging:
+- Forbidden comparisons:
+- Legal or compliance constraints:
 
 ## Asset constraints
-- Generated images must be checked against the brief, cards, and project-spec visual rules before approval
-- Prefer images that feel editorial, premium, and legible on mobile
-- Keep assets deterministic inside each post folder
-- Use stable filenames such as `01.png`, `02.png`, etc.
+- Required asset formats:
+- Recommended dimensions:
+- File naming or organization rules:
+- Logo treatment specifics:
 
 ## Operational notes
-- GranaFlow is a personal finance and money-in-motion use case
-- The content should reinforce financial control, clarity, and better decisions
-- The content workflow should preserve traceability from idea to approval package
-- Project-specific rules live here, not in the shared bootstrap
-- Rejected or revised outputs should feed back into future project notes
-
-## Revision and learning loop
-- Capture which angle worked
-- Capture which CTA got approved
-- Tighten copy or visual rules when feedback repeats
-- Record any format that consistently performs well for the audience
+- Optional implementation or review notes:
+- Content structure preferences:
+- Revision learnings to carry forward:

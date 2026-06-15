@@ -46,6 +46,14 @@ Each card should include:
 - optional `cta_note`
 - optional `source_notes[]`
 
+Storytelling guidance:
+- The cards must read as one continuous narrative.
+- The opening card should make the topic obvious when that improves clarity.
+- The middle cards should add reasoning or progression, not just repeat the premise.
+- Prefer more simple cards over fewer crowded cards when the topic needs room to breathe.
+- Keep the text on each card short enough to stay legible in mobile-first layouts.
+- The CTA card should feel like the natural end of the same argument.
+
 ## Validation rules
 
 - Slides must be ordered sequentially.
@@ -68,3 +76,6 @@ Each card should include:
 - [ ] Required fields are present.
 - [ ] Traceability metadata is included.
 - [ ] The output matches the shared cards schema.
+
+## Reference material
+- `references/storytelling-patterns.md` — generic carousel flow, hook structure, continuity rules, and visual guidance.

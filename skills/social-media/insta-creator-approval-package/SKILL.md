@@ -38,6 +38,8 @@ The approval bundle should include:
 - `assets/`
 - reply drafts when they are relevant to the review
 
+The reviewer should be able to understand the narrative arc, the CTA objective, and the visual direction without opening extra context elsewhere.
+
 ## Approval rules
 
 - Keep the package self-contained.

@@ -30,6 +30,10 @@ Describe how the post should look.
 - Image style
 - Layout preferences
 - Logo or watermark rules
+- Carousel storytelling style, if the project uses carousels:
+  - hook / problem / context / insight / consequences / principle / CTA
+  - continuity across slides
+  - whether the hook should name a topic, program, or event early
 
 ## CTA conventions
 Describe how calls to action should be written.

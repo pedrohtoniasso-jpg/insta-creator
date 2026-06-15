@@ -35,6 +35,8 @@ Recommended order:
 3. CTA
 4. Hashtags
 
+The caption should support the same idea path as the carrossel: opening tension, clear reasoning, practical takeaway, and a CTA that matches the post objective.
+
 ## Caption rules
 
 - Keep the structure stable.

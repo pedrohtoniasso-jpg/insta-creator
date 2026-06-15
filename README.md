@@ -49,7 +49,7 @@ Useful references:
 The repository also includes a reusable project integration layer for loading project specs, normalizing cron-fed idea intake, and queueing approval-gated growth actions.
 
 Useful references:
-- `docs/project-spec.md` (GranaFlow use-case)
+- `docs/project-spec.md` (generic project-spec template)
 - `docs/project-integration.md`
 - `insta_creator_bootstrap/integration.py`
 

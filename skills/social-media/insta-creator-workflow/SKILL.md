@@ -33,10 +33,11 @@ Do not use this skill for:
 
 1. Read the project spec and the shared content workflow contract.
 2. Build the brief first.
-3. Dispatch cards JSON generation and caption generation in parallel from the brief.
-4. Validate the cards JSON using the shared schema contract.
-5. Assemble the approval package only after the artifacts are ready.
-6. Write the bundle into the deterministic post folder.
+3. Decide the narrative arc before writing cards: hook → problem → context → insight → consequences → principle → CTA, or a shorter variant when the topic calls for it.
+4. Dispatch cards JSON generation and caption generation in parallel from the brief.
+5. Validate the cards JSON using the shared schema contract.
+6. Assemble the approval package only after the artifacts are ready.
+7. Write the bundle into the deterministic post folder.
 
 ## Required outputs
 
@@ -70,3 +71,6 @@ The package should contain:
 - [ ] The approval package contains the full review bundle.
 - [ ] The post folder uses the deterministic naming contract.
 - [ ] Traceability from idea to approval package is preserved.
+
+## Reference material
+- `skills/social-media/insta-creator-cards/references/storytelling-patterns.md` — generic carousel narrative pattern for continuity-first carousels.

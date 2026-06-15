@@ -18,12 +18,17 @@ Instagram
 - Image style:
 - Layout preferences:
 - Logo or watermark rules:
+- Carousel storytelling style:
+  - hook / problem / context / insight / consequences / principle / CTA
+  - use short, clean slides with clear continuity
+  - name the topic early when that improves clarity and engagement
 
 ## CTA conventions
 - Primary CTA style:
 - Secondary CTA style:
 - Link or profile reference style:
 - Hashtag conventions:
+- Beta or trial prompt, if relevant:
 
 ## Growth strategy
 - Follow/unfollow policy: automatic
@@ -50,6 +55,9 @@ Instagram
 - Required asset formats:
 - Recommended dimensions:
 - File naming or organization rules:
+- Logo treatment specifics:
 
 ## Operational notes
 - Optional implementation or review notes:
+- Content structure preferences:
+- Revision learnings to carry forward:
