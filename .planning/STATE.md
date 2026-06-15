@@ -21,7 +21,6 @@
 - Growth strategy was added as a first-class project concern.
 
 ## Open questions
-- Whether follow/unfollow actions should be automatic or manually approved in batches.
 
 ## Notes
 - The initial GSD `init` attempt hit a login blocker for the internal Claude-based synthesis step, so the project planning files were scaffolded manually.
