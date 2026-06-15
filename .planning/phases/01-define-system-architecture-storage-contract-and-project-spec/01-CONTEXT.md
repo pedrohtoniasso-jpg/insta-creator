@@ -26,7 +26,8 @@ This phase does *not* implement content generation, publishing, or engagement au
 
 ### Growth boundary
 - Growth actions such as follows, unfollows, likes, and reply drafting belong to the project workflow.
-- Batch reply suggestions should be prepared for human approval before sending.
+- Any drafted reply requires human approval before it can be sent.
+- Batch reply suggestions are just a grouped approval mode for multiple pending replies.
 - Approval gates are required for outbound engagement actions that could be noisy or risky.
 
 ### Post artifact storage

@@ -41,7 +41,7 @@ Describe how the project wants to grow its audience.
 - Follow/unfollow policy
 - Comment like policy
 - Reply strategy
-- Approval rules for engagement actions
+- Approval rules for engagement actions (any drafted response requires approval before sending)
 - Rate limits or safety constraints
 
 ## Prohibited angles

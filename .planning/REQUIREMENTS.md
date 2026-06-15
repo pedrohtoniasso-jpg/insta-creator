@@ -19,7 +19,7 @@ The system must include a bootstrap flow for installing and configuring the shar
 The system must preserve traceability from idea → cards/JSON → caption → approval package → publication.
 
 ## REQ-07 — Growth engagement workflows
-The system must support project-specific growth workflows such as follow/unfollow queues, comment engagement, and batch-generated reply suggestions with approval gates.
+The system must support project-specific growth workflows such as follow/unfollow queues, comment engagement, and reply draft approval gates before sending.
 
 ## Artifact requirements
 Each post folder should contain, at minimum:
