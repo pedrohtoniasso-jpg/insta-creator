@@ -17,7 +17,7 @@
 
 ## Roadmap evolution
 - Phase 1 added: Define system architecture, storage contract, and project-spec boundaries.
-- Phase 1 is now the active starting point for the system design.
+- Phase 1 is now complete and ready for Phase 2 bootstrap work.
 - Growth strategy was added as a first-class project concern.
 
 ## Open questions

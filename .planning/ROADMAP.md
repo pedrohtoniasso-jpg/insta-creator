@@ -5,7 +5,7 @@ Build a reusable Instagram content-creation system for Hermes Agent. The system 
 
 ## Phases
 
-- [ ] **Phase 1: System specification** - Define shared workflow boundaries, storage contracts, project-spec rules, and growth boundaries.
+- [x] **Phase 1: System specification** - Define shared workflow boundaries, storage contracts, project-spec rules, and growth boundaries.
 - [ ] **Phase 2: Bootstrap package** - Build the reusable bootstrap for the shared skill suite.
 - [ ] **Phase 3: Content workflow skills** - Implement the reusable brief, cards, copy, package, and publish skills.
 - [ ] **Phase 4: Project integration and growth ops** - Add project-specific spec loading, cron-fed idea intake, and approval-gated engagement workflows.
@@ -94,7 +94,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. System specification | 0/2 | Not started | - |
+| 1. System specification | 2/2 | Complete | 2026-06-15 |
 | 2. Bootstrap package | 0/2 | Not started | - |
 | 3. Content workflow skills | 0/2 | Not started | - |
 | 4. Project integration and growth ops | 0/3 | Not started | - |
