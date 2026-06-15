@@ -6,13 +6,15 @@ This contract defines the minimum shape of a project-specific branding document 
 ## Required fields
 A project spec must define:
 - Project name
+- Target platform
 - Brand voice
 - Visual rules
 - CTA conventions
 - Growth strategy
-- Prohibited angles or topics
 - Approval behavior
+- Prohibited angles or topics
 - Asset constraints, if any
+- Operational notes, if any
 
 ## Voice
 Describe how the project should sound.
@@ -43,6 +45,7 @@ Describe how the project wants to grow its audience.
 - Reply strategy
 - Approval rules for engagement actions (reply drafts are approved in batches before sending)
 - Rate limits or safety constraints
+- Timing/spread rules for automated actions
 
 ## Prohibited angles
 List topics, claims, or angles that must not appear.
@@ -57,10 +60,17 @@ Describe how the post should be presented for approval.
 - Whether slide-by-slide notes are required
 - Whether revisions should be grouped or marked individually
 - Reply drafts are approved in batches before sending
+- Batch approval package must include the original comment and the suggested reply
 
 ## Minimal example shape
 ```markdown
 # Brand Spec: Example Project
+
+## Project name
+...
+
+## Target platform
+Instagram
 
 ## Voice
 ...
@@ -74,10 +84,16 @@ Describe how the post should be presented for approval.
 ## Growth strategy
 ...
 
+## Approval behavior
+...
+
 ## Prohibited angles
 ...
 
-## Approval behavior
+## Asset constraints
+...
+
+## Operational notes
 ...
 ```
 

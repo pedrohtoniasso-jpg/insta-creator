@@ -10,6 +10,7 @@
 - Follow/unfollow and comment likes are automatic.
 - Reply drafts are approved in batches before sending.
 - The project-spec format will be Markdown with headings.
+- The target publication platform is Instagram.
 - The post storage root is configurable per project, with a local bootstrap default.
 - The default local root is `content/posts/`.
 - The agreed folder naming pattern is `YYYY.MM.DD - Short subject`.
@@ -20,8 +21,6 @@
 - Growth strategy was added as a first-class project concern.
 
 ## Open questions
-- Exact markdown section names and ordering for the project-spec template.
-- Whether publication is Facebook-only, Instagram-only, or multi-platform.
 - Whether follow/unfollow actions should be automatic or manually approved in batches.
 
 ## Notes
