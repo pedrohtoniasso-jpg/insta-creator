@@ -8,6 +8,24 @@ It intentionally avoids naming any single client or campaign.
 ## Target platform
 - Instagram
 
+## Mandatory branding baseline
+These fields must always exist in the project spec so every post keeps a stable brand system even when the user does not specify them.
+- Brand personality
+- Brand voice
+- Visual rules
+- Color palette
+- Typography direction
+- Logo / mark rules
+- CTA conventions
+- Approval behavior
+- Prohibited angles
+
+## Brand personality
+- Mood: calm, trustworthy, modern, premium
+- Character: clear, practical, financially literate, confident
+- Emotional range: controlled, helpful, never flashy
+- Brand posture: educational first, promotional second
+
 ## Brand voice
 - Tone:
 - Form of address:
@@ -17,6 +35,8 @@ It intentionally avoids naming any single client or campaign.
 ## Visual rules
 - Color direction:
 - Typography direction:
+- Starting card title size defaults:
+- Starting card subtitle size defaults:
 - Image style:
 - Layout preferences:
 - Logo or watermark rules:
@@ -46,6 +66,8 @@ It intentionally avoids naming any single client or campaign.
 - Whether revisions should be grouped or marked individually:
 - Reply drafts are approved in batches before sending:
 - Batch approval package contents:
+- Whether an audit checklist is required before final approval:
+- Whether repeated errors must be converted into new checklist questions:
 
 ## Prohibited angles
 - Unsafe claims:

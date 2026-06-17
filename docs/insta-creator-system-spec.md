@@ -10,7 +10,10 @@ Every project must provide a separate brand/spec document. That spec is the sour
 The upstream idea source is a cron-fed signal. `last30days` is the default trend-discovery input, but the shared workflow treats it as just another idea source and does not bake the trend logic into the brand layer.
 
 ## Growth workflow boundary
-Growth actions such as following, unfollowing, liking, and drafting comment replies are part of the project workflow, but they must be governed by project-specific rules and approval gates. Follow/unfollow and comment likes are automatic. Reply drafts should always be prepared for batch review and approved before sending.
+Growth actions such as following, unfollowing, liking, drafting comment replies, and publishing support content are part of the project workflow, but they must be governed by project-specific rules and approval gates. Follow/unfollow and comment likes are automatic. Reply drafts should always be prepared for batch review and approved before sending.
+
+## Audit gate
+Before final approval, the workflow should run a checklist-driven audit pass over the draft package. The audit should verify the theme, narrative arc, data support, copy legibility, visual clarity, CTA focus, and package completeness. Any error or change request should be converted into a new checklist question for the next revision cycle.
 
 ## Image and revision verification
 Generated images must be checked against the approved brief, cards, and project-spec visual rules before a post is approved. If a post is changed or rejected, the workflow should capture the feedback and feed it back into the project documentation so the next run is more accurate.
@@ -27,10 +30,11 @@ Bootstrap belongs to the shared suite. It sets up the generic workflow, validate
 3. The workflow generates a brief.
 4. The workflow generates cards/JSON.
 5. The workflow generates caption/CTA/hashtags.
-6. The workflow packages the post for approval.
-7. The workflow saves the post bundle in a deterministic folder.
-8. Growth actions are queued or drafted when allowed by the project spec.
-9. Publication or engagement happens after approval.
+6. The workflow runs a checklist-driven audit pass.
+7. The workflow packages the post for approval.
+8. The workflow saves the post bundle in a deterministic folder.
+9. Growth actions are queued or drafted when allowed by the project spec.
+10. Publication or engagement happens after approval.
 
 ## Design principles
 - Reusable across projects

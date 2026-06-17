@@ -11,10 +11,12 @@ Instagram
 - Form of address:
 - Vocabulary preferences:
 - Level of directness:
-
 ## Visual rules
+Describe how the post should look.
 - Color direction:
 - Typography direction:
+- Starting card title size defaults:
+- Starting card subtitle size defaults:
 - Image style:
 - Layout preferences:
 - Logo or watermark rules:

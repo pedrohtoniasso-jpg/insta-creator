@@ -7,14 +7,25 @@ This contract defines the minimum shape of a project-specific branding document 
 A project spec must define:
 - Project name
 - Target platform
+- Brand personality
 - Brand voice
 - Visual rules
+- Color palette
+- Typography direction
 - CTA conventions
 - Growth strategy
 - Approval behavior
 - Prohibited angles or topics
 - Asset constraints, if any
 - Operational notes, if any
+
+## Personality
+Describe the brand's emotional posture.
+- Mood
+- Character
+- Energy level
+- Trust level
+- Promotional intensity
 
 ## Voice
 Describe how the project should sound.
@@ -27,6 +38,8 @@ Describe how the project should sound.
 Describe how the post should look.
 - Color direction
 - Typography direction
+- Starting card title font size defaults
+- Starting card subtitle font size defaults
 - Image style
 - Layout preferences
 - Logo or watermark rules
@@ -65,6 +78,8 @@ Describe how the post should be presented for approval.
 - Whether revisions should be grouped or marked individually
 - Reply drafts are approved in batches before sending
 - Batch approval package must include the original comment and the suggested reply
+- Whether an audit checklist is required before final approval
+- Whether repeated errors must be converted into new checklist questions
 
 ## Revision and learning loop
 Describe how feedback from changes or rejections should improve future output.

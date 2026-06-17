@@ -49,7 +49,8 @@ A split view of growth actions:
 2. Normalize the incoming cron idea.
 3. Build a trace context.
 4. Queue growth actions.
-5. Approve reply batches before sending.
+5. Run the audit checklist on the draft package when the task is content creation.
+6. Approve reply batches before sending.
 
 ## Example usage
 

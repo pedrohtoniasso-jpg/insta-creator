@@ -33,11 +33,33 @@ Do not use this skill for:
 
 1. Read the project spec and the shared content workflow contract.
 2. Build the brief first.
-3. Decide the narrative arc before writing cards: hook → problem → context → insight → consequences → principle → CTA, or a shorter variant when the topic calls for it.
+3. Define the carousel narrative arc before card copy.
 4. Dispatch cards JSON generation and caption generation in parallel from the brief.
 5. Validate the cards JSON using the shared schema contract.
-6. Assemble the approval package only after the artifacts are ready.
-7. Write the bundle into the deterministic post folder.
+6. Run a checklist-driven audit of the draft package.
+7. Assemble the approval package only after the artifacts are ready.
+8. Write the bundle into the deterministic post folder.
+
+## Carousel narrative standard
+
+When the output format is a carousel, use a continuous story arc rather than isolated slide copy.
+
+Default sequence:
+1. Theme / problem
+2. Problem with data
+3. Cause with data
+4. Broader impact on the audience
+5. Organizing principle, rule, or takeaway
+6. Dedicated CTA slide
+
+This sequence should be treated as the default pattern unless the project spec explicitly overrides it.
+
+## Shared typography defaults
+
+When generating card copy layouts, use these as the starting point unless the project spec says otherwise:
+- Card title size: 90–110 px, extrabold
+- Card subtitle size: 35–50 px, regular
+- Sizes may be adjusted during review or audit; these values are the starting working range, not the final locked range.
 
 ## Required outputs
 
@@ -73,4 +95,7 @@ The package should contain:
 - [ ] Traceability from idea to approval package is preserved.
 
 ## Reference material
-- `skills/social-media/insta-creator-cards/references/storytelling-patterns.md` — generic carousel narrative pattern for continuity-first carousels.
+
+- `docs/content-workflow-contract.md` — shared workflow order, narrative arc, typography defaults, and audit structure.
+- `docs/insta-creator-system-spec.md` — system-level boundaries for the shared bootstrap and project workflow.
+- `docs/project-integration.md` — normalized cron intake and growth-action queueing.
