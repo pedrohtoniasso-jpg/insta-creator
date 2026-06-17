@@ -44,7 +44,27 @@ Use the project spec template created by the bootstrap and make sure the require
 - asset constraints
 - operational notes
 
-### 3) Run the shared content workflow
+### 3) Connect the second brain
+
+Set the second brain path before running a new agent:
+
+```bash
+export SECOND_BRAIN_PATH=/home/openclaw/cerebro
+```
+
+Core files to read first:
+- `CODEX.md` — profile, working style, and sync rule
+- `HEARTBEAT.md` — operational triage for the current heartbeat
+- `PROPAGATION.md` — what to update when state changes
+- `memory/context/pendencias.md` — open work and closure criteria
+- `memory/context/deadlines.md` — time-sensitive items
+- `memory/context/people.md` — people and roles
+- `memory/context/business-context.md` — consolidated operating context
+- `memory/projects/_index.md` — project overview and next steps
+- `memory/projects/<project>.md` — project-specific notes
+- `memory/YYYY-MM-DD.md` — daily sync notes
+
+### 4) Run the shared content workflow
 
 The shared workflow is split into specialized skills for:
 - brief generation
@@ -128,7 +148,48 @@ Notes:
 - `python -m unittest discover -s tests -v`
 - `python scripts/phase5_hardening_check.py`
 
+## Agent routines
+
+### Hermes / Codex
+- Start by reading `CODEX.md`, `HEARTBEAT.md`, and `PROPAGATION.md`.
+- Check `memory/context/pendencias.md` before planning or creating anything new.
+- Update the matching memory file as soon as a state change happens.
+- Write a daily note in `memory/YYYY-MM-DD.md` when a session changes the operating picture.
+- Prefer concrete closures: action, owner, artifact, and completion criteria.
+- Use the second brain as the operational source of truth, not as a passive archive.
+
+### Zapia
+- Treat the second brain as the historical/context source for business, projects, and decisions.
+- Read the relevant project note before generating a new output.
+- Pull from `memory/projects/_index.md` and `memory/context/business-context.md` before making assumptions.
+- Keep canonical context in memory files; keep drafts and experiments separate.
+- Mirror important decisions back into the right note so the backup stays useful as a reference source.
+- Use the backup workspace as context supply, not as a place for ephemeral scratch-only work.
+
+## Routine for a new agent
+
+1. Set `SECOND_BRAIN_PATH`.
+2. Read `CODEX.md`.
+3. Read `HEARTBEAT.md`.
+4. Read `PROPAGATION.md`.
+5. Read `memory/context/pendencias.md`, `deadlines.md`, `people.md`, and `business-context.md`.
+6. Read the relevant project note in `memory/projects/`.
+7. Load the task-specific skills, and load a `cerebro` skill too if the runtime exposes one.
+8. Complete the task.
+9. Propagate the state change to the matching memory file.
+10. Add or update the day note in `memory/YYYY-MM-DD.md`.
+
 ## Notes
 
 The system is designed to keep project-specific brand rules outside the shared bootstrap while preserving traceability from idea to publishable artifact.
 Generated post bundles should stay out of version control unless a repo explicitly needs them as fixtures or examples.
+The second brain is the operational source of truth for active context, while the repo README stays focused on how to start, sync, and route work.
+
+## Optional second-brain layers to consider
+
+If you want a more complete brain-like setup for future agents, consider adding:
+- `memory/context/inbox.md` for raw intake before classification
+- `skills/_registry.md` so an agent can discover which skills already exist
+- `scripts/brain-boot.sh` or a similar SessionStart hook for automatic briefing
+- a daily sync cron for the second brain snapshot or backup repo
+- a dedicated `memory/sessions/` history so agents can recap recent work without searching chats
