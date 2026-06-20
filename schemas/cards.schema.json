@@ -18,6 +18,14 @@
       "type": "string",
       "minLength": 1
     },
+    "format": {
+      "type": "string",
+      "enum": ["carousel", "story"]
+    },
+    "aspect_ratio": {
+      "type": "string",
+      "enum": ["4:5", "9:16"]
+    },
     "slide_count": {
       "type": "integer",
       "minimum": 1

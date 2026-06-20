@@ -1,7 +1,7 @@
 # Storage Contract
 
 ## Goal
-Store each post as a self-contained artifact bundle that can be reviewed, approved, and published without losing traceability.
+Store each post as a self-contained artifact bundle that can be reviewed, approved, and published without losing traceability. Story bundles use the same folder contract, but they should record the story format explicitly in the manifest and frame layout notes.
 
 ## Folder root
 The post storage root is configurable per project, with a local default supplied by the bootstrap.
@@ -46,6 +46,7 @@ The manifest should capture at least:
 - Post title / subject
 - Date
 - Source idea or prompt
+- Content format
 - Status
 - Artifact list
 - Approval state

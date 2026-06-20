@@ -37,6 +37,7 @@ Instagram
 ...
 
 ## Approval behavior
+Approval channel: main channel
 ...
 
 ## Prohibited angles

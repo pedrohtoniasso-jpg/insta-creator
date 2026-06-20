@@ -26,6 +26,22 @@ _SECTION_SYNONYMS = {
     "asset constraints": "asset constraints",
     "operational notes": "operational notes",
     "revision and learning loop": "revision and learning loop",
+    "story storytelling style": "story storytelling style",
+    "story style": "story storytelling style",
+    "story format": "story storytelling style",
+    "stories": "story storytelling style",
+}
+
+_CONTENT_FORMAT_ALIASES = {
+    "carousel": "carousel",
+    "carousels": "carousel",
+    "feed": "carousel",
+    "post": "carousel",
+    "posts": "carousel",
+    "story": "story",
+    "stories": "story",
+    "story_sequence": "story",
+    "story_sequence_post": "story",
 }
 
 AUTO_GROWTH_ACTIONS = {"follow", "unfollow", "comment_like"}
@@ -44,6 +60,7 @@ class ProjectSpec:
     section_order: tuple[str, ...]
     project_name: str | None = None
     target_platform: str | None = None
+    approval_channel: str | None = None
 
 
 @dataclass(frozen=True)
@@ -51,10 +68,12 @@ class CronIdeaIntake:
     """Normalized cron-fed idea input."""
 
     source: str
+    source_channel: str | None
     idea_text: str
     trace_id: str
     priority_hint: str | None
     format_hint: str | None
+    content_format: str | None
     project_name: str | None
     project_spec_path: str | None
     structured_fields: dict[str, Any]
@@ -79,6 +98,27 @@ class GrowthActionQueue:
     approval_required: tuple[GrowthAction, ...]
     reply_batches: tuple[GrowthAction, ...]
     trace: dict[str, Any]
+
+
+@dataclass(frozen=True)
+class ApprovalDeliveryContract:
+    """Visible output contract for the main approval channel."""
+
+    channel: str
+    visible_payload: tuple[str, ...]
+    final_only: bool = True
+
+
+@dataclass(frozen=True)
+class WorkflowContinuation:
+    """State for resuming the content flow after the user selects a theme."""
+
+    trace: dict[str, Any]
+    selected_theme: str
+    approval_delivery: ApprovalDeliveryContract
+    current_stage: str
+    next_stage: str
+    hidden_stages: tuple[str, ...]
 
 
 def _normalize_heading(heading: str) -> str:
@@ -127,6 +167,12 @@ def load_project_spec(path: str | Path) -> ProjectSpec:
     raw_text = spec_path.read_text(encoding="utf-8")
     validate_project_spec(raw_text)
     title, sections, section_order = _parse_markdown_sections(raw_text)
+    approval_channel = _prefixed_value(
+        sections.get("approval behavior"),
+        "approval channel",
+        "main channel",
+        "delivery channel",
+    )
     return ProjectSpec(
         path=spec_path,
         title=title,
@@ -135,6 +181,7 @@ def load_project_spec(path: str | Path) -> ProjectSpec:
         section_order=section_order,
         project_name=_first_line(sections.get("project name")),
         target_platform=_first_line(sections.get("target platform")),
+        approval_channel=approval_channel,
     )
 
 
@@ -145,6 +192,28 @@ def _first_line(text: str | None) -> str | None:
         cleaned = line.strip()
         if cleaned:
             return cleaned.lstrip("-•*").strip()
+    return None
+
+
+def _prefixed_value(text: str | None, *labels: str) -> str | None:
+    if text is None:
+        return None
+    for line in text.splitlines():
+        cleaned = line.strip().lstrip("-•*").strip()
+        for label in labels:
+            if not cleaned.lower().startswith(label.lower()):
+                continue
+            remainder = cleaned[len(label):].strip()
+            if remainder.startswith(":") or remainder.startswith("-"):
+                remainder = remainder[1:].strip()
+            if remainder.startswith("(") and ")" in remainder:
+                tail = remainder[remainder.index(")") + 1 :].strip()
+                if tail.startswith(":") or tail.startswith("-"):
+                    tail = tail[1:].strip()
+                if tail:
+                    remainder = tail
+            if remainder:
+                return remainder
     return None
 
 
@@ -159,6 +228,16 @@ def _stringify_hint(value: Any) -> str | None:
     if value in (None, ""):
         return None
     return str(value).strip() or None
+
+
+def normalize_content_format(value: Any) -> str | None:
+    """Normalize a content format hint to the shared story/carousel vocabulary."""
+
+    text = _stringify_hint(value)
+    if text is None:
+        return None
+    normalized = text.replace("-", "_").replace(" ", "_").lower()
+    return _CONTENT_FORMAT_ALIASES.get(normalized, normalized)
 
 
 def _trace_id(seed: str) -> str:
@@ -187,11 +266,13 @@ def normalize_cron_intake(
 
     priority_hint = _stringify_hint(_pick_first(raw, "priority_hint", "priority"))
     format_hint = _stringify_hint(_pick_first(raw, "format_hint", "format", "post_format"))
+    content_format = normalize_content_format(format_hint)
     source_value = _stringify_hint(_pick_first(raw, "source", "source_name")) or source
     project_name_value = _stringify_hint(_pick_first(raw, "project_name")) or project_name
     project_spec_path_value = (
         str(Path(project_spec_path).expanduser().resolve()) if project_spec_path else None
     )
+    source_channel = _stringify_hint(_pick_first(raw, "source_channel", "delivery_channel"))
     trace_id = _stringify_hint(_pick_first(raw, "trace_id", "idea_id", "campaign_id"))
     if not trace_id:
         seed = "|".join(
@@ -218,6 +299,8 @@ def normalize_cron_intake(
         "post_format",
         "source",
         "source_name",
+        "source_channel",
+        "delivery_channel",
         "project_name",
         "project_spec_path",
         "trace_id",
@@ -232,10 +315,12 @@ def normalize_cron_intake(
 
     return CronIdeaIntake(
         source=source_value,
+        source_channel=source_channel,
         idea_text=idea_text,
         trace_id=trace_id,
         priority_hint=priority_hint,
         format_hint=format_hint,
+        content_format=content_format,
         project_name=project_name_value,
         project_spec_path=project_spec_path_value,
         structured_fields=structured_fields,
@@ -249,13 +334,52 @@ def build_trace_context(project_spec: ProjectSpec, intake: CronIdeaIntake) -> di
     return {
         "trace_id": intake.trace_id,
         "source": intake.source,
+        "source_channel": intake.source_channel,
         "idea_text": intake.idea_text,
         "project_name": project_spec.project_name or intake.project_name,
         "project_spec_path": str(project_spec.path),
+        "approval_channel": project_spec.approval_channel,
         "lineage": ["cron-intake", "project-spec", "growth-queue"],
         "priority_hint": intake.priority_hint,
         "format_hint": intake.format_hint,
+        "content_format": intake.content_format,
     }
+
+
+
+def build_workflow_continuation(
+    project_spec: ProjectSpec,
+    intake: CronIdeaIntake,
+    *,
+    selected_theme: str,
+    approval_channel: str | None = None,
+    visible_payload: Sequence[str] = ("images", "caption"),
+) -> WorkflowContinuation:
+    """Build the continuation state after the user selects a theme."""
+
+    trace = build_trace_context(project_spec, intake)
+    resolved_channel = (
+        _stringify_hint(approval_channel)
+        or project_spec.approval_channel
+        or intake.source_channel
+        or intake.source
+        or "main channel"
+    )
+    resolved_payload = tuple(visible_payload)
+    if resolved_payload == ("images", "caption") and intake.content_format == "story":
+        resolved_payload = ("story_frames", "caption")
+    return WorkflowContinuation(
+        trace=trace,
+        selected_theme=selected_theme.strip(),
+        approval_delivery=ApprovalDeliveryContract(
+            channel=resolved_channel,
+            visible_payload=resolved_payload,
+            final_only=True,
+        ),
+        current_stage="theme_selected",
+        next_stage="brief",
+        hidden_stages=("brief", "cards", "caption", "audit", "approval_package"),
+    )
 
 
 def classify_growth_action(action_type: str, *, requires_approval: bool | None = None) -> bool:

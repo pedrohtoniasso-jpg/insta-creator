@@ -4,7 +4,7 @@ A reusable Instagram content creation system for Hermes Agent.
 
 It combines:
 - a shared bootstrap package for new environments
-- reusable content workflow skills for briefs, cards, captions, audits, and approval packages
+- reusable content workflow skills for briefs, cards, stories, captions, audits, and approval packages
 - project-specific spec loading and idea intake
 - approval-gated growth workflows
 - operational hardening and reproducibility checks
@@ -15,10 +15,19 @@ It combines:
 - a reusable skill suite for turning ideas into structured content packages
 - project documentation and contracts for storage, project specs, workflow boundaries, and audit checks
 - verification artifacts and hardening checks for deterministic reuse
+- a project-local `.env` contract for companion Instagram posting automation
 
 ## Quick start
 
-### 1) Set up a project scaffold
+### 1) Install the local package
+
+This repository now includes Python packaging metadata, so you can install it in editable mode:
+
+```bash
+python -m pip install -e .
+```
+
+### 2) Set up a project scaffold
 
 ```bash
 python -m insta_creator_bootstrap --help
@@ -27,7 +36,7 @@ python -m insta_creator_bootstrap apply --target <dir>
 python -m insta_creator_bootstrap validate --target <dir>
 ```
 
-### 2) Fill the project spec
+### 3) Fill the project spec
 
 Use the project spec template created by the bootstrap and make sure the required sections are present:
 - project name
@@ -44,7 +53,7 @@ Use the project spec template created by the bootstrap and make sure the require
 - asset constraints
 - operational notes
 
-### 3) Connect the second brain
+### 4) Connect the second brain
 
 Set the second brain path before running a new agent:
 
@@ -64,12 +73,41 @@ Core files to read first:
 - `memory/projects/<project>.md` — project-specific notes
 - `memory/YYYY-MM-DD.md` — daily sync notes
 
-### 4) Run the shared content workflow
+### 5) Configure Instagram posting credentials
+
+The shared workflow in this repo does not post to Meta by itself, but companion posting helpers do. The repo now ships a root `.env.example` documenting the expected variables.
+
+Recommended setup:
+
+```bash
+cp .env.example .env
+```
+
+Populate:
+
+```env
+INSTAGRAM_ACCESS_TOKEN=<long-lived-instagram-token>
+FACEBOOK_USER_ACCESS_TOKEN=<optional-facebook-user-token>
+FACEBOOK_APP_ID=<optional-meta-app-id>
+FACEBOOK_APP_SECRET=<optional-meta-app-secret>
+```
+
+Recommended secret layout:
+- keep your canonical secrets in `~/.hermes/.env`
+- if a project-local helper expects a local `.env`, symlink it:
+
+```bash
+ln -sf ~/.hermes/.env .env
+```
+
+Use this when your posting workflow runs from the project directory and should reuse the same token without copying it.
+
+### 6) Run the shared content workflow
 
 The shared workflow is split into specialized skills for:
 - brief generation
 - carousel narrative planning
-- carousel cards in validated JSON
+- carousel cards and stories in validated JSON
 - caption generation
 - audit / review pass
 - approval package assembly
@@ -82,15 +120,25 @@ Useful references:
 - `skills/social-media/insta-creator-workflow/SKILL.md`
 - `skills/social-media/insta-creator-brief/SKILL.md`
 - `skills/social-media/insta-creator-cards/SKILL.md`
+- `skills/social-media/insta-creator-stories/SKILL.md`
 - `skills/social-media/insta-creator-caption/SKILL.md`
 - `skills/social-media/insta-creator-approval-package/SKILL.md`
+
+The integration layer also carries the workflow continuation state after the user selects a theme, so a single cron can feed the idea while the approval channel stays generic and final-only.
+
+### 7) Optional trend research skill
+
+The repository also includes the `last30days` skill for finding recent signals and turning them into content opportunities.
+
+Useful reference:
+- `skills/research/last30days/SKILL.md`
 
 ## Recommended content flow
 
 1. Read the project spec.
 2. Build the brief.
-3. Shape the carousel narrative arc before drafting cards.
-4. Generate cards JSON and caption content.
+3. Shape the narrative arc before drafting cards or story frames.
+4. Generate cards/stories JSON and caption content.
 5. Run the audit checklist before final approval.
 6. Assemble the approval package.
 7. Store everything in a deterministic per-post folder.
@@ -142,6 +190,51 @@ Notes:
 - keep growth actions approval-gated when they involve public replies or sensitive engagement
 - keep project-specific cron logic outside the shared bootstrap
 - use the project spec to decide which actions are automatic and which need review
+
+## Hermes cron examples
+
+If you are using Hermes cron, create self-contained jobs and point them at this repo as the `--workdir`.
+
+### Content idea intake
+
+```bash
+hermes cron create "0 8 * * *" \
+  "Use the last30days skill to collect recent Instagram content opportunities, normalize them into candidate ideas, and deliver a shortlist for review." \
+  --name "insta-creator-idea-intake" \
+  --deliver telegram \
+  --workdir /home/openclaw/insta-creator
+```
+
+### Content creation
+
+```bash
+hermes cron create "30 8 * * *" \
+  "Use the insta-creator workflow to turn the currently selected idea into a brief, structured cards or story frames, caption, and final approval package." \
+  --name "insta-creator-content-creation" \
+  --deliver telegram \
+  --workdir /home/openclaw/insta-creator
+```
+
+### Audit pass
+
+```bash
+hermes cron create "0 9 * * *" \
+  "Run the insta-creator audit pass against the latest draft package and report any issues that must be fixed before approval." \
+  --name "insta-creator-audit" \
+  --deliver telegram \
+  --workdir /home/openclaw/insta-creator
+```
+
+You can inspect and manage them with:
+
+```bash
+hermes cron list
+hermes cron edit <job-id>
+hermes cron run <job-id>
+hermes cron pause <job-id>
+hermes cron resume <job-id>
+hermes cron remove <job-id>
+```
 
 ## Verification
 

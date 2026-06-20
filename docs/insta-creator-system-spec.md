@@ -15,6 +15,9 @@ Growth actions such as following, unfollowing, liking, drafting comment replies,
 ## Audit gate
 Before final approval, the workflow should run a checklist-driven audit pass over the draft package. The audit should verify the theme, narrative arc, data support, copy legibility, visual clarity, CTA focus, and package completeness. Any error or change request should be converted into a new checklist question for the next revision cycle.
 
+## Approval channel boundary
+The approval channel is the user's main channel for the project. It should receive only the final approved deliverable, while the internal workflow stages remain hidden.
+
 ## Image and revision verification
 Generated images must be checked against the approved brief, cards, and project-spec visual rules before a post is approved. If a post is changed or rejected, the workflow should capture the feedback and feed it back into the project documentation so the next run is more accurate.
 
@@ -28,13 +31,15 @@ Bootstrap belongs to the shared suite. It sets up the generic workflow, validate
 1. Cron produces an idea signal.
 2. The workflow reads the project spec.
 3. The workflow generates a brief.
-4. The workflow generates cards/JSON.
+4. The workflow generates cards/JSON or story-frame JSON.
 5. The workflow generates caption/CTA/hashtags.
 6. The workflow runs a checklist-driven audit pass.
 7. The workflow packages the post for approval.
 8. The workflow saves the post bundle in a deterministic folder.
 9. Growth actions are queued or drafted when allowed by the project spec.
 10. Publication or engagement happens after approval.
+
+The internal stages are not user-facing; the user should only choose the topic and approve the final output.
 
 ## Design principles
 - Reusable across projects

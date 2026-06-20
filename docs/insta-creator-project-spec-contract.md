@@ -46,6 +46,10 @@ Describe how the post should look.
 - Carousel storytelling style, if the project uses carousels:
   - hook / problem / context / insight / consequences / principle / CTA
   - continuity across slides
+- Story format, if the project uses stories:
+  - 9:16 full-screen frames
+  - one idea per frame
+  - clear story arc across the sequence
   - whether the hook should name a topic, program, or event early
 
 ## CTA conventions
@@ -64,6 +68,12 @@ Describe how the project wants to grow its audience.
 - Rate limits or safety constraints
 - Timing/spread rules for automated actions
 
+## Approval channel
+Describe the main channel where the user receives the approval prompt.
+- Main channel name or destination
+- Whether that channel should receive only the final deliverable
+- Whether internal workflow artifacts stay hidden from the user
+
 ## Prohibited angles
 List topics, claims, or angles that must not appear.
 - Unsafe claims
@@ -73,7 +83,8 @@ List topics, claims, or angles that must not appear.
 
 ## Approval behavior
 Describe how the post should be presented for approval.
-- Whether the approval message should include the final caption
+- Approval channel / main channel
+- Whether the approval message should include only the final deliverable
 - Whether slide-by-slide notes are required
 - Whether revisions should be grouped or marked individually
 - Reply drafts are approved in batches before sending

@@ -7,7 +7,7 @@ license: MIT
 metadata:
   hermes:
     tags: [instagram, approval, review-bundle, packaging, audit]
-    related_skills: [insta-creator-workflow-orchestrator, insta-creator-brief, insta-creator-cards, insta-creator-caption]
+    related_skills: [insta-creator-workflow-orchestrator, insta-creator-brief, insta-creator-cards, insta-creator-stories, insta-creator-caption]
 ---
 
 # Insta Creator Approval Package Skill
@@ -37,6 +37,7 @@ The approval bundle should include:
 - `approval.md`
 - `assets/`
 - reply drafts when they are relevant to the review
+- story-frame notes when the post format is `story`
 
 The reviewer should be able to understand the narrative arc, the CTA objective, and the visual direction without opening extra context elsewhere.
 

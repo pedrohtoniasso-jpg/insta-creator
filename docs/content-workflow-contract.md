@@ -4,8 +4,10 @@ This document defines the reusable shared workflow that turns an idea into an ap
 
 ## Workflow order
 1. Build a brief from the idea and the project spec.
-2. Shape the carousel narrative arc before drafting cards.
-3. Generate cards JSON and caption content in parallel.
+2. Shape the narrative arc before drafting copy.
+   - For carousels, define the slide-by-slide narrative before card copy.
+   - For stories, define the frame-by-frame progression before story copy.
+3. Generate cards JSON or story-frame JSON plus caption content in parallel.
 4. Validate the generated artifacts.
 5. Run a checklist-driven audit of the draft package.
 6. Assemble the approval package.
@@ -21,6 +23,10 @@ For carousel posts, the shared workflow should prefer a consistent story arc:
 6. End with a dedicated CTA slide that drives the objective.
 
 The default pattern should feel like a single continuous story, not isolated slide-by-slide facts.
+
+The workflow stages before approval are internal; the user should only see the topic selection and the final approval output.
+
+Stories should follow the same bundle structure as other content items, but the package should make the `story` format explicit and keep the visual plan aligned to 9:16 frames.
 
 ## Deterministic folder layout
 Each post lives in its own folder under the project-configured storage root, with a local default of `content/posts/`.
@@ -65,6 +71,7 @@ The manifest is the traceability anchor. It should record:
 - the idea source
 - the project spec path or version identifier
 - the selected content angle
+- the content format, such as `carousel` or `story`
 - artifact filenames
 - validation status
 - approval status
@@ -73,7 +80,7 @@ The manifest is the traceability anchor. It should record:
 The brief captures the problem, audience, angle, content objective, risks, and CTA direction.
 
 ### `cards.json`
-Cards are structured JSON. They must be deterministic, ordered, easy to validate, and shaped like a single narrative rather than disconnected mini-posts.
+Cards are structured JSON. They must be deterministic, ordered, easy to validate, and shaped like a single narrative rather than disconnected mini-posts. When the content format is `story`, the same bundle should express the sequence as 9:16 frames instead of feed-post cards. The package may include an explicit `format` and `aspect_ratio` to make that distinction clear.
 
 ### `caption.md`
 The caption should keep a predictable structure that supports the same narrative arc as the cards: hook, body, CTA, hashtags.

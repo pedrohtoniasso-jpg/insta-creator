@@ -3,12 +3,13 @@
 This repository keeps project-specific behavior outside the shared bootstrap and reusable workflow core.
 
 ## What this layer does
-
 The integration layer connects three things:
 
 - a project-specific Markdown spec
 - a cron-fed idea intake signal
 - approval-gated growth actions with traceability
+
+It also stores the continuation state after a theme is selected so the workflow can resume without a second cron.
 
 ## Core objects
 
@@ -33,7 +34,7 @@ A normalized intake shape for cron-fed ideas.
 It preserves:
 - free-form idea text
 - priority hints
-- format hints
+- format hints for carousel or story content
 - structured metadata
 - traceability identifiers
 
@@ -42,6 +43,17 @@ A split view of growth actions:
 - `automatic` for low-sensitivity actions like follows, unfollows, and likes
 - `approval_required` for reply drafts and similar public-facing actions
 - `reply_batches` for grouped approval of reply drafts before sending
+
+### `ApprovalDeliveryContract`
+A visible-output contract for the main approval channel.
+
+It preserves:
+- the approval channel name or destination
+- which payload is visible externally
+- whether the final output is approval-only
+
+### `WorkflowContinuation`
+A state object that carries the selected theme and the hidden internal stages so the workflow can resume after the user chooses a topic.
 
 ## Example flow
 
@@ -80,9 +92,9 @@ queue = queue_growth_actions([
 ```
 
 ## Contract rules
-
 - The shared bootstrap stays generic.
 - Brand rules remain in the project spec.
 - Cron can suggest priority and format, but it does not make the final editorial decision.
 - Reply drafts are approved in batches before sending.
 - Every growth action keeps traceability metadata.
+- The approval channel comes from the project spec or the selected main channel, and only the final deliverable is visible there.

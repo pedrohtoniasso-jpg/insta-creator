@@ -61,8 +61,12 @@ _SECTION_SYNONYMS = {
     "prohibited angles or topics": "prohibited angles",
     "asset constraints": "asset constraints",
     "operational notes": "operational notes",
+    "revision and learning loop": "revision and learning loop",
+    "story storytelling style": "story storytelling style",
+    "story style": "story storytelling style",
+    "story format": "story storytelling style",
+    "stories": "story storytelling style",
 }
-
 
 def normalize_slug(value: str) -> str:
     slug = re.sub(r"[^a-z0-9]+", "-", value.strip().lower())
@@ -98,6 +102,25 @@ def _extract_sections(markdown: str) -> list[str]:
     return sections
 
 
+def _extract_section_body(markdown: str, heading: str) -> str:
+    target = _normalize_heading(heading)
+    collecting = False
+    body: list[str] = []
+
+    for line in markdown.splitlines():
+        match = re.match(r"^##\s+(.+?)\s*$", line.strip())
+        if match:
+            current = _normalize_heading(match.group(1))
+            if collecting and current != target:
+                break
+            collecting = current == target
+            continue
+        if collecting:
+            body.append(line)
+
+    return "\n".join(body).strip()
+
+
 def validate_project_spec(text: str) -> None:
     sections = _extract_sections(text)
     if not sections:
@@ -115,6 +138,12 @@ def validate_project_spec(text: str) -> None:
         raise BootstrapValidationError(
             "Project spec required sections are out of order; expected: "
             + ", ".join(REQUIRED_SPEC_SECTIONS)
+        )
+
+    approval_behavior = _extract_section_body(text, "approval behavior").lower()
+    if "approval channel" not in approval_behavior and "main channel" not in approval_behavior:
+        raise BootstrapValidationError(
+            "Project spec approval behavior must define an approval channel or main channel."
         )
 
 

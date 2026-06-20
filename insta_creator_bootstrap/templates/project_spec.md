@@ -24,6 +24,10 @@ Describe how the post should look.
   - hook / problem / context / insight / consequences / principle / CTA
   - use short, clean slides with clear continuity
   - name the topic early when that improves clarity and engagement
+- Story format:
+  - 9:16 full-screen frames with one idea per frame
+  - keep the sequence tight and easy to tap through
+  - surface the story arc early when clarity matters
 
 ## CTA conventions
 - Primary CTA style:
@@ -41,11 +45,13 @@ Describe how the post should look.
 - Timing/spread rules for automated actions:
 
 ## Approval behavior
-- Whether the approval message should include the final caption:
+- Approval channel:
+- Whether the approval message should include only the final deliverable:
 - Whether slide-by-slide notes are required:
 - Whether revisions should be grouped or marked individually:
 - Reply drafts are approved in batches before sending:
 - Batch approval package contents:
+- Visible approval payload (for example images and caption only):
 
 ## Prohibited angles
 - Unsafe claims:

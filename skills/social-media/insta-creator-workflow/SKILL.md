@@ -1,13 +1,13 @@
 ---
 name: insta-creator-workflow-orchestrator
-description: Use when turning an idea into a complete reusable Instagram content package. Orchestrates brief, cards, caption, and approval packaging while preserving traceability.
+description: Use when turning an idea into a complete reusable Instagram content package. Orchestrates brief, cards, stories, caption, and approval packaging while preserving traceability.
 version: 1.0.0
 author: Hermes Agent
 license: MIT
 metadata:
   hermes:
     tags: [instagram, social-media, workflow, orchestrator, traceability]
-    related_skills: [insta-creator-brief, insta-creator-cards, insta-creator-caption, insta-creator-approval-package]
+    related_skills: [insta-creator-brief, insta-creator-cards, insta-creator-stories, insta-creator-caption, insta-creator-approval-package]
 ---
 
 # Insta Creator Workflow Orchestrator
@@ -33,9 +33,11 @@ Do not use this skill for:
 
 1. Read the project spec and the shared content workflow contract.
 2. Build the brief first.
-3. Define the carousel narrative arc before card copy.
-4. Dispatch cards JSON generation and caption generation in parallel from the brief.
-5. Validate the cards JSON using the shared schema contract.
+3. Shape the narrative arc before copy generation.
+   - For carousels, define the slide sequence before drafting cards.
+   - For stories, define the frame sequence before drafting story frames.
+4. Dispatch cards/stories JSON generation and caption generation in parallel from the brief.
+5. Validate the cards/stories JSON using the shared schema contract.
 6. Run a checklist-driven audit of the draft package.
 7. Assemble the approval package only after the artifacts are ready.
 8. Write the bundle into the deterministic post folder.
@@ -88,8 +90,8 @@ The package should contain:
 ## Verification Checklist
 
 - [ ] The brief is produced first.
-- [ ] Cards JSON and caption are generated from the brief.
-- [ ] Cards JSON validates against the shared schema.
+- [ ] Cards/stories JSON and caption are generated from the brief.
+- [ ] Cards/stories JSON validates against the shared schema.
 - [ ] The approval package contains the full review bundle.
 - [ ] The post folder uses the deterministic naming contract.
 - [ ] Traceability from idea to approval package is preserved.
@@ -99,3 +101,5 @@ The package should contain:
 - `docs/content-workflow-contract.md` — shared workflow order, narrative arc, typography defaults, and audit structure.
 - `docs/insta-creator-system-spec.md` — system-level boundaries for the shared bootstrap and project workflow.
 - `docs/project-integration.md` — normalized cron intake and growth-action queueing.
+- `skills/social-media/insta-creator-cards/references/storytelling-patterns.md` — generic carousel narrative pattern for continuity-first carousels.
+- `skills/social-media/insta-creator-stories/SKILL.md` — vertical story-frame counterpart to the carousel skill.
