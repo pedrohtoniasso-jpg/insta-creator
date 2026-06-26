@@ -7,7 +7,7 @@ license: MIT
 metadata:
   hermes:
     tags: [instagram, brief, planning, traceability, social-media]
-    related_skills: [insta-creator-workflow-orchestrator, insta-creator-cards, insta-creator-caption, insta-creator-approval-package]
+    related_skills: [insta-creator, insta-creator-cards, insta-creator-caption, insta-creator-approval-package]
 ---
 
 # Insta Creator Brief Skill

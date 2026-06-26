@@ -7,7 +7,7 @@ license: MIT
 metadata:
   hermes:
     tags: [instagram, caption, copywriting, hashtags, cta]
-    related_skills: [insta-creator-workflow-orchestrator, insta-creator-brief, insta-creator-cards, insta-creator-approval-package]
+    related_skills: [insta-creator, insta-creator-brief, insta-creator-cards, insta-creator-approval-package]
 ---
 
 # Insta Creator Caption Skill

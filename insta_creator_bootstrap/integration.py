@@ -81,6 +81,23 @@ class CronIdeaIntake:
 
 
 @dataclass(frozen=True)
+class ContentRunInput:
+    """Concrete input passed from cron selection into the Insta Creator orchestrator."""
+
+    project_id: str
+    project_spec_path: str
+    visual_template_path: str
+    theme: str
+    source: str
+    trace_id: str
+    user_action: str
+    output_format: str | None
+    change_request: str | None
+    structured_fields: dict[str, Any]
+    raw_input: dict[str, Any]
+
+
+@dataclass(frozen=True)
 class GrowthAction:
     """A normalized growth action with traceability metadata."""
 
@@ -379,6 +396,145 @@ def build_workflow_continuation(
         current_stage="theme_selected",
         next_stage="brief",
         hidden_stages=("brief", "cards", "caption", "audit", "approval_package"),
+    )
+
+
+def default_project_paths(project_id: str, *, root: str | Path = ".") -> tuple[Path, Path]:
+    """Return default spec/template paths for a project id under docs/projects/<id>."""
+
+    slug = re.sub(r"[^a-z0-9]+", "-", project_id.strip().lower()).strip("-")
+    if not slug:
+        raise BootstrapValidationError("project_id is required.")
+    base = Path(root).expanduser().resolve() / "docs" / "projects" / slug
+    return base / "project-spec.md", base / "visual-template.md"
+
+
+def normalize_content_run_input(
+    payload: Mapping[str, Any],
+    *,
+    root: str | Path = ".",
+    source: str = "cron-selection",
+) -> ContentRunInput:
+    """Normalize the handoff created after the user selects or revises a cron idea."""
+
+    raw = dict(payload)
+    selection = raw.get("selection") if isinstance(raw.get("selection"), Mapping) else {}
+    if selection:
+        for key, value in dict(selection).items():
+            raw.setdefault(key, value)
+    shortlist_value = raw.get("shortlist")
+    shortlist = shortlist_value if isinstance(shortlist_value, Sequence) and not isinstance(shortlist_value, (str, bytes)) else []
+
+    project_id = _stringify_hint(_pick_first(raw, "project_id", "project", "brand", "page"))
+    if not project_id:
+        raise BootstrapValidationError("Content run input must include project_id.")
+    theme = _stringify_hint(_pick_first(raw, "theme", "selected_theme", "idea_text", "idea", "topic"))
+    selected_item: Mapping[str, Any] | None = None
+    if shortlist:
+        selected_option = _stringify_hint(_pick_first(raw, "selected_option", "choice", "selection_option"))
+        if selected_option and selected_option.isdigit():
+            index = int(selected_option) - 1
+            if 0 <= index < len(shortlist):
+                candidate_item = shortlist[index]
+                if isinstance(candidate_item, Mapping):
+                    selected_item = candidate_item
+                    if not theme:
+                        theme = _stringify_hint(
+                            _pick_first(selected_item, "theme", "selected_theme", "idea_text", "idea", "topic")
+                        )
+    if not theme:
+        raise BootstrapValidationError("Content run input must include selected theme/topic.")
+
+    default_spec, default_template = default_project_paths(project_id, root=root)
+    spec_path = Path(_stringify_hint(_pick_first(raw, "project_spec_path", "project_spec")) or default_spec).expanduser()
+    template_path = Path(_stringify_hint(_pick_first(raw, "visual_template_path", "visual_template")) or default_template).expanduser()
+    if not spec_path.is_absolute():
+        spec_path = Path(root).expanduser().resolve() / spec_path
+    if not template_path.is_absolute():
+        template_path = Path(root).expanduser().resolve() / template_path
+    if not spec_path.exists():
+        raise BootstrapValidationError(f"Selected project spec does not exist: {spec_path}")
+    if not template_path.exists():
+        raise BootstrapValidationError(f"Selected visual template does not exist: {template_path}")
+
+    action = (_stringify_hint(_pick_first(raw, "user_action", "action")) or "select").lower()
+    if action not in {"select", "revise"}:
+        raise BootstrapValidationError("user_action must be 'select' or 'revise'.")
+    change_request = _stringify_hint(_pick_first(raw, "change_request", "revision", "alteration", "feedback"))
+    if action == "revise" and not change_request:
+        raise BootstrapValidationError("change_request is required when user_action is 'revise'.")
+
+    output_format = _stringify_hint(
+        _pick_first(raw, "output_format", "content_format", "format", "post_format")
+    )
+    if not output_format and selected_item:
+        output_format = _stringify_hint(
+            _pick_first(selected_item, "output_format", "content_format", "format", "post_format")
+        )
+    output_format = normalize_content_format(output_format) if output_format else None
+
+    source_value = _stringify_hint(_pick_first(raw, "source", "source_name")) or source
+    trace_id = _stringify_hint(_pick_first(raw, "trace_id", "selection_id", "idea_id"))
+    if not trace_id:
+        trace_id = _trace_id("|".join([source_value, project_id, theme, str(spec_path), str(template_path), action, change_request or ""]))
+
+    recognized = {
+        "project_id", "project", "brand", "page", "theme", "selected_theme", "idea_text", "idea", "topic",
+        "user_action", "action", "change_request", "revision", "alteration", "feedback",
+        "source", "source_name", "trace_id", "selection_id", "idea_id", "project_spec_path", "project_spec",
+        "visual_template_path", "visual_template", "output_format", "content_format", "format", "post_format",
+    }
+    structured = {key: value for key, value in raw.items() if key not in recognized}
+    return ContentRunInput(
+        project_id=project_id,
+        project_spec_path=str(spec_path.resolve()),
+        visual_template_path=str(template_path.resolve()),
+        theme=theme,
+        source=source_value,
+        trace_id=trace_id,
+        user_action=action,
+        output_format=output_format,
+        change_request=change_request,
+        structured_fields=structured,
+        raw_input=raw,
+    )
+
+
+def content_run_input_to_prompt(run_input: ContentRunInput) -> str:
+    """Build a self-contained prompt for calling the Insta Creator orchestrator after selection."""
+
+    lines = [
+        "Execute o insta-creator usando o input normalizado abaixo.",
+        "Use o project_spec_path e o visual_template_path informados; não use a spec genérica como marca.",
+        "Respeite output_format quando informado: carousel deve seguir docs/carousel-workflow-contract.md e virar um ativo de valor com hook específico, motivo de save/share, CTA único e arco de slides justificado.",
+        "Respeite output_format quando informado: story deve seguir docs/story-workflow-contract.md e virar um único Story 9:16 interativo, não uma sequência/carrossel.",
+        "Se user_action for revise, aplique o change_request antes de produzir o pacote final.",
+        "",
+        "```json",
+        json_like(run_input),
+        "```",
+    ]
+    return "\n".join(lines)
+
+
+def json_like(run_input: ContentRunInput) -> str:
+    import json
+
+    return json.dumps(
+        {
+            "project_id": run_input.project_id,
+            "project_spec_path": run_input.project_spec_path,
+            "visual_template_path": run_input.visual_template_path,
+            "theme": run_input.theme,
+            "source": run_input.source,
+            "trace_id": run_input.trace_id,
+            "user_action": run_input.user_action,
+            "output_format": run_input.output_format,
+            "change_request": run_input.change_request,
+            "structured_fields": run_input.structured_fields,
+        },
+        indent=2,
+        ensure_ascii=False,
     )
 
 

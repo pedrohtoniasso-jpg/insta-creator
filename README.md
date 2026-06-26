@@ -4,7 +4,7 @@ A reusable Instagram content creation system for Hermes Agent.
 
 It combines:
 - a shared bootstrap package for new environments
-- reusable content workflow skills for briefs, cards, stories, captions, audits, and approval packages
+- reusable content workflow skills for briefs, cards, captions, audits, and approval packages
 - project-specific spec loading and idea intake
 - approval-gated growth workflows
 - operational hardening and reproducibility checks
@@ -12,22 +12,13 @@ It combines:
 ## What this repository provides
 
 - `insta_creator_bootstrap`: a local Python package that can plan, apply, and validate a shared scaffold
-- a reusable skill suite for turning ideas into structured content packages
+- a reusable skill suite for turning selected ideas into complete content packages
 - project documentation and contracts for storage, project specs, workflow boundaries, and audit checks
 - verification artifacts and hardening checks for deterministic reuse
-- a project-local `.env` contract for companion Instagram posting automation
 
 ## Quick start
 
-### 1) Install the local package
-
-This repository now includes Python packaging metadata, so you can install it in editable mode:
-
-```bash
-python -m pip install -e .
-```
-
-### 2) Set up a project scaffold
+### 1) Set up a project scaffold
 
 ```bash
 python -m insta_creator_bootstrap --help
@@ -36,7 +27,7 @@ python -m insta_creator_bootstrap apply --target <dir>
 python -m insta_creator_bootstrap validate --target <dir>
 ```
 
-### 3) Fill the project spec
+### 2) Fill the project spec
 
 Use the project spec template created by the bootstrap and make sure the required sections are present:
 - project name
@@ -53,12 +44,12 @@ Use the project spec template created by the bootstrap and make sure the require
 - asset constraints
 - operational notes
 
-### 4) Connect the second brain
+### 3) Connect the second brain
 
 Set the second brain path before running a new agent:
 
 ```bash
-export SECOND_BRAIN_PATH=/home/openclaw/cerebro
+export SECOND_BRAIN_PATH=/path/to/second-brain
 ```
 
 Core files to read first:
@@ -73,88 +64,65 @@ Core files to read first:
 - `memory/projects/<project>.md` — project-specific notes
 - `memory/YYYY-MM-DD.md` — daily sync notes
 
-### 5) Configure Instagram posting credentials
-
-The shared workflow in this repo does not post to Meta by itself, but companion posting helpers do. The repo now ships a root `.env.example` documenting the expected variables.
-
-Recommended setup:
-
-```bash
-cp .env.example .env
-```
-
-Populate:
-
-```env
-INSTAGRAM_ACCESS_TOKEN=<long-lived-instagram-token>
-FACEBOOK_USER_ACCESS_TOKEN=<optional-facebook-user-token>
-FACEBOOK_APP_ID=<optional-meta-app-id>
-FACEBOOK_APP_SECRET=<optional-meta-app-secret>
-```
-
-Recommended secret layout:
-- keep your canonical secrets in `~/.hermes/.env`
-- if a project-local helper expects a local `.env`, symlink it:
-
-```bash
-ln -sf ~/.hermes/.env .env
-```
-
-Use this when your posting workflow runs from the project directory and should reuse the same token without copying it.
-
-### 6) Run the shared content workflow
+### 4) Run the shared content workflow
 
 The shared workflow is split into specialized skills for:
 - brief generation
 - carousel narrative planning
-- carousel cards and stories in validated JSON
+- carousel cards in validated JSON
 - caption generation
-- audit / review pass
+- visual asset rendering / audit
 - approval package assembly
 
 Useful references:
+- `docs/visual-template-contract.md`
+- `docs/project-spec.md`
 - `docs/content-workflow-contract.md`
+- `docs/carousel-workflow-contract.md`
+- `docs/story-workflow-contract.md`
 - `docs/insta-creator-system-spec.md`
 - `docs/project-integration.md`
 - `schemas/cards.schema.json`
 - `skills/social-media/insta-creator-workflow/SKILL.md`
 - `skills/social-media/insta-creator-brief/SKILL.md`
 - `skills/social-media/insta-creator-cards/SKILL.md`
-- `skills/social-media/insta-creator-stories/SKILL.md`
 - `skills/social-media/insta-creator-caption/SKILL.md`
 - `skills/social-media/insta-creator-approval-package/SKILL.md`
 
-The integration layer also carries the workflow continuation state after the user selects a theme, so a single cron can feed the idea while the approval channel stays generic and final-only.
-
-### 7) Optional trend research skill
-
-The repository also includes the `last30days` skill for finding recent signals and turning them into content opportunities.
-
-Useful reference:
-- `skills/research/last30days/SKILL.md`
-
 ## Recommended content flow
 
-1. Read the project spec.
-2. Build the brief.
-3. Shape the narrative arc before drafting cards or story frames.
-4. Generate cards/stories JSON and caption content.
-5. Run the audit checklist before final approval.
-6. Assemble the approval package.
-7. Store everything in a deterministic per-post folder.
+**Single entrypoint:** always start production with `skills/social-media/insta-creator-workflow/SKILL.md` (`insta-creator`).
+
+1. Discovery cron returns exactly 5 numbered ideas and persists them to `state/latest-shortlist/<project_id>.json`.
+2. User selects one idea by number or explicit theme.
+3. If the reply is only `1`-`5` or `Opção N`, resolve it from the persisted latest-shortlist state before production.
+4. Cron discovery uses 5 numbered ideas; user reply is normalized into a selection handoff.
+5. Orchestrator reads the selected project spec, selected visual template, and trace context.
+6. Build the brief.
+7. Validate the brief with checklist.
+8. Shape the carousel narrative before drafting cards.
+9. Validate the narrative with checklist.
+10. Generate cards JSON and caption.
+11. Validate cards/caption with checklist.
+12. Render card images.
+13. Validate rendered images against the project spec.
+14. Run final package audit.
+15. Assemble deterministic bundle.
+16. Send the approval payload: caption + rendered card images.
+
+The user should not receive internal stages unless they explicitly ask for them.
 
 ## Audit workflow
 
 The audit pass is stage-based and question-driven.
 
-Suggested stages:
-- subject / thesis audit
-- storyline audit
-- data / evidence audit
-- copy / readability audit
-- visual audit
-- CTA audit
+Required stages:
+- brief audit
+- narrative audit
+- cards/caption audit
+- visual assets audit
 - packaging / delivery audit
+- revision loop audit
 
 Rule of thumb:
 - every error, objection, or change request should become a new checklist question for the next run
@@ -162,21 +130,19 @@ Rule of thumb:
 
 ## Cron presets
 
-Use cron to automate three common queues: content discovery, content creation, and growth operations.
+Use cron to automate discovery and follow-up queues. Production should begin only after a selection signal.
 
 Suggested schedules:
 
 - **Content ideas / trend intake**
   - schedule: `0 8 * * *`
-  - purpose: collect recent signals, normalize ideas, and queue candidate topics
+  - purpose: collect recent signals and return exactly 5 candidate topics
+  - for Carousels: return exactly 5 swipeable value assets with `output_format: carousel`, `carousel_type`, hook, save/share reason, primary CTA, and compact slide arc; do not return only broad topics
+  - for Stories: return exactly 5 single Story units with `output_format: story`, `story_type`, hook, native sticker prompt/options, CTA, and visual direction; do not return sequences of posts
 
-- **Content creation**
-  - schedule: `30 8 * * *`
-  - purpose: generate the brief, cards, caption, and approval package for the selected idea
-
-- **Audit pass**
-  - schedule: `0 9 * * *`
-  - purpose: run the stage-based checklist before approval
+- **Content production**
+  - trigger: selected idea / explicit theme
+  - purpose: generate the brief, narrative, cards JSON, caption, rendered images, audit, and approval payload
 
 - **Growth actions**
   - schedule: `*/30 * * * *`
@@ -189,52 +155,10 @@ Suggested schedules:
 Notes:
 - keep growth actions approval-gated when they involve public replies or sensitive engagement
 - keep project-specific cron logic outside the shared bootstrap
+- when the discovery cron is used, make it return exactly 5 numbered ideas so the user can answer only with `1`-`5`
+- after generating the shortlist, persist it with `python -m insta_creator_bootstrap shortlist save --project-id <project_id> --job-id <job_id> --shortlist-json '<json-array>' --project-spec <path> --visual-template <path>` so a later one-digit reply can be resolved without the user naming the cron
+- normalize the reply into a selection handoff containing `project_id`, `selection.shortlist_id`, `selection.selected_option` or `selection.theme`, and `selection.user_action`
 - use the project spec to decide which actions are automatic and which need review
-
-## Hermes cron examples
-
-If you are using Hermes cron, create self-contained jobs and point them at this repo as the `--workdir`.
-
-### Content idea intake
-
-```bash
-hermes cron create "0 8 * * *" \
-  "Use the last30days skill to collect recent Instagram content opportunities, normalize them into candidate ideas, and deliver a shortlist for review." \
-  --name "insta-creator-idea-intake" \
-  --deliver telegram \
-  --workdir /home/openclaw/insta-creator
-```
-
-### Content creation
-
-```bash
-hermes cron create "30 8 * * *" \
-  "Use the insta-creator workflow to turn the currently selected idea into a brief, structured cards or story frames, caption, and final approval package." \
-  --name "insta-creator-content-creation" \
-  --deliver telegram \
-  --workdir /home/openclaw/insta-creator
-```
-
-### Audit pass
-
-```bash
-hermes cron create "0 9 * * *" \
-  "Run the insta-creator audit pass against the latest draft package and report any issues that must be fixed before approval." \
-  --name "insta-creator-audit" \
-  --deliver telegram \
-  --workdir /home/openclaw/insta-creator
-```
-
-You can inspect and manage them with:
-
-```bash
-hermes cron list
-hermes cron edit <job-id>
-hermes cron run <job-id>
-hermes cron pause <job-id>
-hermes cron resume <job-id>
-hermes cron remove <job-id>
-```
 
 ## Verification
 
@@ -265,24 +189,11 @@ hermes cron remove <job-id>
 2. Read `CODEX.md`.
 3. Read `HEARTBEAT.md`.
 4. Read `PROPAGATION.md`.
-5. Read `memory/context/pendencias.md`, `deadlines.md`, `people.md`, and `business-context.md`.
-6. Read the relevant project note in `memory/projects/`.
-7. Load the task-specific skills, and load a `cerebro` skill too if the runtime exposes one.
-8. Complete the task.
-9. Propagate the state change to the matching memory file.
-10. Add or update the day note in `memory/YYYY-MM-DD.md`.
+5. Check `memory/context/pendencias.md` and `memory/projects/_index.md`.
+6. Load the project spec before content generation.
+7. Use the orchestrator as the content-production entrypoint.
+8. Write state changes back to the correct memory file.
 
 ## Notes
 
-The system is designed to keep project-specific brand rules outside the shared bootstrap while preserving traceability from idea to publishable artifact.
-Generated post bundles should stay out of version control unless a repo explicitly needs them as fixtures or examples.
-The second brain is the operational source of truth for active context, while the repo README stays focused on how to start, sync, and route work.
-
-## Optional second-brain layers to consider
-
-If you want a more complete brain-like setup for future agents, consider adding:
-- `memory/context/inbox.md` for raw intake before classification
-- `skills/_registry.md` so an agent can discover which skills already exist
-- `scripts/brain-boot.sh` or a similar SessionStart hook for automatic briefing
-- a daily sync cron for the second brain snapshot or backup repo
-- a dedicated `memory/sessions/` history so agents can recap recent work without searching chats
+Keep the shared workflow generic, and keep brand or project-specific rules in the project spec.

@@ -1,57 +1,100 @@
-# Brand Spec: $project_name
+# Brand Spec Template
+
+This document is a generic template for project-specific Instagram brand specs.
+Fill it with the active project’s real rules before running content production.
 
 ## Project name
-$project_name
 
 ## Target platform
-Instagram
+- Instagram feed carousels, default 4:5 portrait unless overridden.
+
+## Brand personality
+- Mood:
+- Character:
+- Emotional range:
+- Brand posture:
 
 ## Brand voice
 - Tone:
 - Form of address:
 - Vocabulary preferences:
 - Level of directness:
+- Rhythm / sentence length:
+
 ## Visual rules
-Describe how the post should look.
-- Color direction:
-- Typography direction:
+- Visual identity:
+- Background style:
+- Layout preferences:
+- Slide density:
+- Carousel storytelling style:
+  - hook / problem / data or context / impact / principle or rule / dedicated CTA
+- Explicit visual anti-patterns:
+
+## Color palette
+- Background primary:
+- Background secondary:
+- Accent primary:
+- Accent secondary:
+- Text primary:
+- Text muted:
+
+## Typography direction
+- Preferred family:
+- Secondary/fallback:
+- Visual feeling:
+- Headline weight:
+- Subtitle/body weight:
 - Starting card title size defaults:
 - Starting card subtitle size defaults:
-- Image style:
-- Layout preferences:
-- Logo or watermark rules:
-- Carousel storytelling style:
-  - hook / problem / context / insight / consequences / principle / CTA
-  - use short, clean slides with clear continuity
-  - name the topic early when that improves clarity and engagement
-- Story format:
-  - 9:16 full-screen frames with one idea per frame
-  - keep the sequence tight and easy to tap through
-  - surface the story arc early when clarity matters
+
+## Logo / mark rules
+- Mark type:
+- Placement:
+- Size:
+- When to use wordmark:
+- When not to use wordmark:
 
 ## CTA conventions
-- Primary CTA style:
-- Secondary CTA style:
-- Link or profile reference style:
+- Primary CTA:
+- Secondary CTA:
+- Link/profile reference style:
 - Hashtag conventions:
-- Beta or trial prompt, if relevant:
+- Beta/trial prompt, if relevant:
 
 ## Growth strategy
-- Follow/unfollow policy: automatic
-- Comment like policy: automatic
+- Follow/unfollow policy:
+- Comment like policy:
 - Reply strategy:
 - Approval rules for engagement actions:
 - Rate limits or safety constraints:
 - Timing/spread rules for automated actions:
 
+## Idea selection gate
+- Discovery cron returns exactly 5 numbered options.
+- The user can continue by replying only with `1`-`5`.
+- Each option should include theme, angle, why it matters now, and recommended format.
+- Do not generate the final post until a numbered choice or explicit theme is confirmed.
+
 ## Approval behavior
-- Approval channel:
-- Whether the approval message should include only the final deliverable:
-- Whether slide-by-slide notes are required:
-- Whether revisions should be grouped or marked individually:
-- Reply drafts are approved in batches before sending:
-- Batch approval package contents:
-- Visible approval payload (for example images and caption only):
+- Approval channel: main channel
+- User approves only at the final package stage.
+- Visible approval payload:
+  - final caption
+  - rendered card images already created for the post
+- Internal artifacts stay in the bundle unless requested:
+  - `manifest.json`
+  - `brief.md`
+  - `cards.json`
+  - `caption.md`
+  - `approval.md`
+  - `assets/`
+- Stage checklists required:
+  - brief
+  - narrative
+  - cards/caption
+  - visual assets
+  - final package
+- Repeated errors become new checklist questions and project-spec rules.
 
 ## Prohibited angles
 - Unsafe claims:

@@ -1,64 +1,75 @@
 ---
 name: insta-creator-approval-package
-description: Use when assembling the review bundle for an Instagram content package in the shared workflow. Collects brief, cards, caption, manifest, and reply drafts into one approval-ready folder.
-version: 1.0.0
+description: Use when assembling the final Instagram review bundle after brief, cards, caption, visual assets, and audits already exist.
+version: 1.1.0
 author: Hermes Agent
 license: MIT
 metadata:
   hermes:
     tags: [instagram, approval, review-bundle, packaging, audit]
-    related_skills: [insta-creator-workflow-orchestrator, insta-creator-brief, insta-creator-cards, insta-creator-stories, insta-creator-caption]
+    related_skills: [insta-creator, insta-creator-brief, insta-creator-cards, insta-creator-caption]
 ---
 
 # Insta Creator Approval Package Skill
 
 ## Overview
 
-This skill assembles the final review bundle for a post. The goal is to put everything a reviewer needs in one place so approval does not require hunting through scattered files.
+This skill assembles the final review bundle for a post. It is a packaging step, not a generator. The goal is to keep internal artifacts traceable while sending the user only what they need to approve.
 
 ## When to Use
 
-- Brief, cards, and caption are already generated.
-- You need a single approval bundle inside the deterministic post folder.
-- Reply drafts, when relevant, need to be included before sending.
+- Brief, cards JSON, caption, rendered images, and stage validations already exist.
+- You need a single deterministic post folder.
+- You need to prepare the final user-facing approval payload.
 
 Do not use this skill for:
-- generating the content from scratch
+- generating content from scratch
+- replacing the workflow orchestrator
+- asking for intermediate approvals
 - creating project-specific brand rules
 - cron intake or growth queueing
 
 ## Approval package contents
 
-The approval bundle should include:
+The internal bundle should include:
 - `manifest.json`
 - `brief.md`
 - `cards.json`
 - `caption.md`
 - `approval.md`
-- `assets/`
-- reply drafts when they are relevant to the review
-- story-frame notes when the post format is `story`
+- `assets/01.png`, `assets/02.png`, etc.
+- reply drafts when relevant to review
 
-The reviewer should be able to understand the narrative arc, the CTA objective, and the visual direction without opening extra context elsewhere.
+The user-facing approval output should include only:
+- the final caption, preferably between backticks when delivered in chat
+- the rendered card images already created for the post
+
+Internal JSON, brief, traceability, and audit logs stay in the bundle unless the user asks to inspect them.
 
 ## Approval rules
 
 - Keep the package self-contained.
 - Preserve the same post identifier in every artifact.
 - Include a concise summary of the chosen content direction.
+- Record stage checklist results in `approval.md`.
 - Make the reviewer’s decision path obvious.
-- Keep any reply drafts in the bundle rather than as separate loose files.
+- Keep any reply drafts in the bundle rather than as loose files.
+- Do not present textual card outlines as “cards”; rendered images are required.
 
 ## Common Pitfalls
 
 1. **Forgetting the manifest.** The manifest is the traceability anchor.
 2. **Splitting the bundle.** The package should stay in one post folder.
-3. **Leaving out reply drafts.** If they matter to the approval, include them in the bundle.
+3. **Dumping internal artifacts to the user.** The approval chat should show caption + images, not every internal file.
+4. **Leaving out rendered images.** Without images, the package is not approval-ready.
+5. **Skipping rejection learnings.** Rejections should become checklist/spec updates.
 
 ## Verification Checklist
 
 - [ ] The bundle contains all required artifacts.
 - [ ] The manifest matches the post folder and idea source.
+- [ ] Rendered images exist with stable filenames.
+- [ ] Stage validation results are recorded.
+- [ ] The visible approval payload is caption + images.
 - [ ] Reply drafts are included when relevant.
-- [ ] The package is easy to approve in one pass.
 - [ ] The deterministic folder layout is respected.

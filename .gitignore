@@ -7,3 +7,9 @@ __pycache__/
 dist/
 build/
 content/posts/
+
+# Local project configuration and runtime state (do not publish in the public system repo)
+/config/
+/docs/projects/
+/state/
+/references/

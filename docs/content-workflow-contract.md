@@ -1,32 +1,57 @@
 # Content Workflow Contract
 
-This document defines the reusable shared workflow that turns an idea into an approval-ready content package.
+This document defines the reusable shared workflow that turns an idea into an approval-ready Instagram content package.
+
+For Instagram carousels, also follow `docs/carousel-workflow-contract.md`. Carousel requests must be engineered as swipeable value assets with a specific hook, justified slide arc, and a save/share/comment/DM objective.
+
+For Instagram Stories, also follow `docs/story-workflow-contract.md`. Story requests must produce a single 9:16 interaction unit by default, not a carousel or a sequence of posts.
+
+## Execution boundary
+- The workflow starts only after a user selects a theme from discovery intake.
+- The orchestrator is responsible for all production steps.
+- The user is not the orchestrator: do not ask for intermediate approval during production.
+- The only user approval point is the final package, after caption and rendered card images exist.
 
 ## Workflow order
-1. Build a brief from the idea and the project spec.
-2. Shape the narrative arc before drafting copy.
-   - For carousels, define the slide-by-slide narrative before card copy.
-   - For stories, define the frame-by-frame progression before story copy.
-3. Generate cards JSON or story-frame JSON plus caption content in parallel.
-4. Validate the generated artifacts.
-5. Run a checklist-driven audit of the draft package.
-6. Assemble the approval package.
-7. Store everything in a deterministic per-post folder.
+1. Load the selected project spec, selected visual template, and trace context.
+2. Build the brief from the selected idea and project spec.
+2.1 Validate the brief with a checklist before moving on.
+3. Shape the format-specific narrative arc before drafting cards/story frames.
+3.1 Validate the narrative with a checklist before moving on.
+4. Generate cards JSON and caption content from the approved internal brief/narrative.
+4.1 Validate cards JSON and caption with a checklist before moving on.
+5. Render card images from `cards.json`, selected project spec, and selected visual template.
+5.1 Validate rendered images against the project spec and visual template before moving on.
+6. Run the final package audit.
+7. Assemble the approval package.
+8. Store everything in a deterministic per-post folder.
+9. Send the user-facing approval payload as:
+   - rendered card images as native media attachments
+   - caption in a copy-friendly block the user can paste directly
+   - carousel shorthand: caption + rendered card images
+
+## Format selection rule
+
+The selected idea must carry or resolve to an output format before production:
+- `carousel`: use the carousel engagement contract in `docs/carousel-workflow-contract.md` and the carousel narrative standard below.
+- `story`: use the Story micro-arc in `docs/story-workflow-contract.md`.
+
+If a carousel idea arrives as a broad topic, sharpen it into a specific promise before production. The production brief must identify the carousel type, hook, save/share reason, primary CTA, and slide arc.
+
+If a Story idea arrives as a sequence of posts, compress it into one interactive Story unit instead of producing multiple frames. Use one hook, one sticker prompt, one CTA, and one 9:16 visual direction.
 
 ## Carousel narrative standard
-For carousel posts, the shared workflow should prefer a consistent story arc:
+For carousel posts, prefer a consistent story arc:
 1. Open with the theme or problem.
 2. Show the problem with supporting data or evidence.
-3. Explain the cause with supporting data or evidence.
-4. Connect the issue to the broader audience or population.
+3. Explain the context, cause, or mechanism.
+4. Connect the issue to the audience’s real decision.
 5. Offer the organizing principle, rule, or takeaway.
 6. End with a dedicated CTA slide that drives the objective.
 
 The default pattern should feel like a single continuous story, not isolated slide-by-slide facts.
-
-The workflow stages before approval are internal; the user should only see the topic selection and the final approval output.
-
-Stories should follow the same bundle structure as other content items, but the package should make the `story` format explicit and keep the visual plan aligned to 9:16 frames.
+For news, regulatory, or product-update topics, the opening slide must name the actor, the decision/change, and the immediate consequence; avoid vague hooks when a concrete headline exists.
+The deck must also satisfy the engagement standard: the cover earns the swipe, the middle slides build value, and the final CTA asks for one relevant action — save, share, comment, or DM.
 
 ## Deterministic folder layout
 Each post lives in its own folder under the project-configured storage root, with a local default of `content/posts/`.
@@ -37,31 +62,53 @@ Expected files:
 - `cards.json`
 - `caption.md`
 - `approval.md`
-- `assets/`
+- `assets/01.png`, `assets/02.png`, ...
 
 Recommended naming pattern:
 - `YYYY.MM.DD - Short subject`
 
 ## Shared typography defaults
 For card generation, use these as the starting point unless the project spec overrides them:
-- Card title size: 90–110 px, extrabold
-- Card subtitle size: 35–50 px, regular
-- Sizes may be adjusted during review or audit; these values are the starting working range, not the final locked range.
+- Card title size: 86–104 px on 1080×1350, extrabold/black.
+- Card subtitle/body size: 34–48 px on 1080×1350, regular/medium.
+- Sizes may be adjusted during review or audit; legibility wins over fixed values.
 
-## Shared audit structure
-The audit step should run after draft generation and before final approval. It should be implemented as a checklist of questions, not as a single pass/fail label.
+## Stage checklist structure
+Each validation step must be question-driven, not a single pass/fail label.
 
-### Audit stages
-1. Strategy audit
-2. Narrative audit
-3. Copy audit
-4. Visual audit
-5. CTA audit
-6. Packaging audit
-7. Revision loop audit
+### Brief checklist
+- Does the brief name the selected idea and source?
+- Does it define audience, objective, core message, risk, CTA, and visual direction?
+- Does it cite the project spec as the visual/voice source of truth?
+- For carousels, does it name the carousel type, hook, save/share reason, primary CTA, and slide arc?
 
-### Core rule
-Every error, inconsistency, or change request must become a new checklist question for the current or next audit stage so the same issue can be verified in future runs.
+### Narrative checklist
+- Does the story move from hook → evidence/context → practical impact → takeaway → CTA?
+- Does each slide add one new step instead of repeating the premise?
+- Does the CTA feel like the natural ending of the same argument?
+- If the output format is `carousel`, does the first slide earn a swipe and does every slide justify its place?
+- If the output format is `story`, did we use the story micro-arc instead of carousel logic?
+
+### Cards/caption checklist
+- Does `cards.json` parse and match the schema?
+- Are slide numbers sequential and equal to `slide_count`?
+- Are headline/body strings short enough for mobile?
+- For every card, do wrapped lines avoid orphan/single-word breaks?
+- Does the caption support the same story and keep hashtags at the end?
+- For carousels, is there one primary engagement CTA matched to the topic objective?
+- For Stories, is there exactly one primary interaction and a native sticker directive instead of a feed caption?
+
+### Visual assets checklist
+- Are all rendered images present in `assets/` with stable filenames?
+- Do the visuals match the project spec identity?
+- Do the visuals apply the selected project spec exactly, including its color palette, typography, logo/mark rules, layout constraints, and explicit anti-patterns?
+- Is the text legible on mobile and free of cutoffs?
+
+### Final package checklist
+- Does the bundle contain all required files?
+- Does `approval.md` summarize the checks and final decision state?
+- Is the user-facing approval payload only caption + images, not internal drafts?
+- Did any rejection/change request become a new checklist question or project-spec rule?
 
 ## Shared artifact roles
 
@@ -71,33 +118,32 @@ The manifest is the traceability anchor. It should record:
 - the idea source
 - the project spec path or version identifier
 - the selected content angle
-- the content format, such as `carousel` or `story`
-- artifact filenames
-- validation status
+- artifact filenames, including rendered images
+- validation status by stage
 - approval status
 
 ### `brief.md`
-The brief captures the problem, audience, angle, content objective, risks, and CTA direction.
+The brief captures the problem, audience, angle, content objective, risks, CTA direction, visual direction, and traceability.
 
 ### `cards.json`
-Cards are structured JSON. They must be deterministic, ordered, easy to validate, and shaped like a single narrative rather than disconnected mini-posts. When the content format is `story`, the same bundle should express the sequence as 9:16 frames instead of feed-post cards. The package may include an explicit `format` and `aspect_ratio` to make that distinction clear.
+Cards are structured JSON. They must be deterministic, ordered, easy to validate, and shaped like a single narrative rather than disconnected mini-posts.
+
+### Card images / visual assets
+When the workflow says “cards”, the reviewer expects generated card images or image-ready assets, not a textual outline of slide contents. The visual assets must be produced and audited before approval.
 
 ### `caption.md`
-The caption should keep a predictable structure that supports the same narrative arc as the cards: hook, body, CTA, hashtags.
+The caption should keep a predictable structure that supports the same narrative arc as the cards: hook, body, CTA, hashtags. For approval delivery, format the caption as copy-ready text and include emojis when they improve readability or emphasis. Limit hashtags to at most 5.
 
 ### `approval.md`
-The approval package should summarize the chosen direction and provide the reviewer with everything needed in one place.
+The approval package summarizes the chosen direction, stage validations, visual audit, and final visible payload.
 
 ## Traceability rules
 - Every artifact must reference the same post identifier.
-- The brief, cards, caption, and approval package must all point back to the originating idea.
-- Revisions should preserve the same folder and increment the traceability metadata rather than scattering files.
+- The brief, cards, caption, images, and approval package must all point back to the originating idea.
+- Revisions should preserve the same folder and increment traceability metadata rather than scattering files.
 
 ## Validation rules
 - Cards JSON must be syntactically valid and schema-compatible.
+- Rendered images must exist before final approval.
 - The content package must contain all required files before approval.
-- The workflow must remain generic and must not absorb project-specific branding rules.
-
-## Notes
-- Project-specific rules belong in the project spec, not in this shared contract.
-- Approval-gated reply drafts, when relevant, are included in the approval package rather than as loose files.
+- The shared workflow remains generic; project-specific branding belongs in the project spec.

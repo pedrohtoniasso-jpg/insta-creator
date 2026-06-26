@@ -1,13 +1,13 @@
 ---
 name: insta-creator-cards
-description: Use when turning a brief into structured carousel cards JSON for the shared Instagram workflow. Validates slide order, card roles, and copy structure. Use the story skill for vertical story sequences.
+description: Use when turning a brief into structured carousel cards JSON for the shared Instagram workflow. Validates slide order, card roles, and copy structure.
 version: 1.0.0
 author: Hermes Agent
 license: MIT
 metadata:
   hermes:
     tags: [instagram, cards, json, validation, carousel]
-    related_skills: [insta-creator-workflow-orchestrator, insta-creator-brief, insta-creator-stories, insta-creator-caption, insta-creator-approval-package]
+    related_skills: [insta-creator, insta-creator-brief, insta-creator-caption, insta-creator-approval-package]
 ---
 
 # Insta Creator Cards Skill
